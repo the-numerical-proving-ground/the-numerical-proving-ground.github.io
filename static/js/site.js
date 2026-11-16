@@ -643,6 +643,23 @@
      the tilt did nothing on his phone). A link is left alone, so that the dialog never stands in a page's way. */
   function wireTilt() {
     var DOE = window.DeviceOrientationEvent;
+    /* With ?tilt in the address, a small box at the foot of the window says what the tilt is doing, for checking a
+       phone: whether the browser reports the tilt, whether it asks leave and what the reader answered, whether
+       reduced motion is on, and the reports as they come. Nothing shows without ?tilt. */
+    var diag = null, D = { asked: '-', events: 0, b: 0, g: 0 };
+    if (/[?&]tilt\b/.test(location.search)) {
+      diag = document.createElement('div');
+      diag.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99;padding:8px 10px;font:12px/1.5 monospace;' +
+        'background:rgba(0,0,0,.85);color:#fff;border:1px solid #94B1FF;border-radius:6px;white-space:pre-wrap';
+      document.body.appendChild(diag);
+      window.setInterval(function () {
+        diag.textContent = 'tilt API: ' + (DOE ? 'yes' : 'NO') +
+          ' | needs leave: ' + (DOE && typeof DOE.requestPermission === 'function' ? 'yes' : 'no') +
+          ' | answer: ' + D.asked + '\nreduced motion: ' + (quiet() ? 'ON (effects off)' : 'off') +
+          ' | reports: ' + D.events + ' | front-back ' + D.b.toFixed(1) + ' side ' + D.g.toFixed(1) +
+          ' | lit: ' + (live ? 'yes' : 'no');
+      }, 250);
+    }
     if (!DOE) return;
     if (typeof DOE.requestPermission === 'function') {
       var asking = false;
@@ -650,10 +667,12 @@
         var t = e.target && e.target.closest ? e.target.closest('a, button, input, summary, label, select, textarea') : null;
         if (t || asking || quiet()) return;
         asking = true;
+        D.asked = 'asking';
         DOE.requestPermission().then(function (state) {
+          D.asked = state;
           if (state === 'granted' || state === 'denied') document.removeEventListener('touchend', ask);
           asking = false;
-        }, function () { asking = false; });   /* not a tap (the end of a scroll): asked again on the next one */
+        }, function (err) { D.asked = 'not a tap (' + (err && err.name || 'error') + '), will ask again'; asking = false; });
       };
       document.addEventListener('touchend', ask, { passive: true });
     }
@@ -669,6 +688,7 @@
     }
     window.addEventListener('deviceorientation', function (e) {
       if (typeof e.beta !== 'number' || typeof e.gamma !== 'number') return;
+      D.events++; D.b = e.beta; D.g = e.gamma;
       if (quiet() || document.hidden) { if (live) rest(); return; }
       /* front to back and side to side as the reader sees the screen, whichever way up the phone is */
       var turn = (window.screen && screen.orientation && screen.orientation.angle) || 0;
