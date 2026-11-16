@@ -132,7 +132,7 @@ html.js body{min-height:calc(100vh + 280px)}
 .topin .theme::before{content:"";position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;
   background:linear-gradient(90deg,var(--acc),var(--ink));
   -webkit-mask:var(--g) center/contain no-repeat;mask:var(--g) center/contain no-repeat;
-  transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  transform:rotate(var(--tt,0deg));transition:transform .55s cubic-bezier(.2,.7,.2,1)}
 @media (hover:hover){
 .topin .theme:hover::before{transform:rotate(45deg)}
 .topin .theme[data-to="dark"]:hover::before{transform:rotate(-30deg)}
@@ -198,7 +198,7 @@ html:not(.js) .emblem:hover .mk{filter:drop-shadow(0 0 6px var(--acc)) drop-shad
 .steps a.g::before,.steps a.g::after{content:"";position:absolute;left:0;top:50%;width:18px;height:18px;margin-top:-9px;
   background:linear-gradient(90deg,var(--acc),var(--ink));
   -webkit-mask:var(--g) center/contain no-repeat;mask:var(--g) center/contain no-repeat}
-.steps a.g::before{transform:rotate(var(--gt,0deg));transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.steps a.g::before{transform:rotate(calc(var(--gt,0deg) + var(--tt,0deg)));transition:transform .55s cubic-bezier(.2,.7,.2,1)}   /* --tt: a phone's tilt */
 @media (prefers-reduced-motion:reduce){.steps a.g::before{transform:none;transition:none}}
 /* where the four do not fit in a row, they stand two by two, and on a phone one under the other, with their signs
    in line (a wrapped row left one step alone on its line, and the signs out of line) */

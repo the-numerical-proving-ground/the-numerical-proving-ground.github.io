@@ -636,11 +636,27 @@
      and that level follows the hand slowly, so any way of holding it becomes level again within a few seconds.
      A phone held still gets no light: it fades a second and a half after the last tilt, and nothing runs. A finger
      on the mark has the say while it is there. None with reduced motion.
-     Safari on an iPhone reports the tilt only after it has asked the reader's leave in a dialog of its own. This
-     site does not ask, so nothing happens there. */
+     Every other item that answers a pointer answers the tilt as well: the small ring signs before the next steps
+     and the theme switch turn with it (the stylesheet reads --tt), as they turn under a pointer.
+     Safari on an iPhone reports the tilt only after the reader has allowed it in a dialog of its own, which a page
+     may open only from a tap: the first tap on the page that is not on a link or a button opens it (Max, 2026-11-16:
+     the tilt did nothing on his phone). A link is left alone, so that the dialog never stands in a page's way. */
   function wireTilt() {
     var DOE = window.DeviceOrientationEvent;
-    if (!DOE || typeof DOE.requestPermission === 'function') return;
+    if (!DOE) return;
+    if (typeof DOE.requestPermission === 'function') {
+      var asking = false;
+      var ask = function (e) {
+        var t = e.target && e.target.closest ? e.target.closest('a, button, input, summary, label, select, textarea') : null;
+        if (t || asking || quiet()) return;
+        asking = true;
+        DOE.requestPermission().then(function (state) {
+          if (state === 'granted' || state === 'denied') document.removeEventListener('touchend', ask);
+          asking = false;
+        }, function () { asking = false; });   /* not a tap (the end of a scroll): asked again on the next one */
+      };
+      document.addEventListener('touchend', ask, { passive: true });
+    }
     var REACH = 18;        /* degrees of tilt that carry the light from the middle to the edge */
     var STILL = 0.6;       /* degrees: less than this between two reports is a hand holding still */
     var b0 = null, g0 = null, lb = 0, lg = 0, then = 0, timer = 0, live = false;
@@ -649,6 +665,7 @@
       var c = wire();
       if (c) c.level();
       for (var i = 0; i < names.length; i++) names[i].hide();
+      root.style.removeProperty('--tt');
     }
     window.addEventListener('deviceorientation', function (e) {
       if (typeof e.beta !== 'number' || typeof e.gamma !== 'number') return;
@@ -672,6 +689,7 @@
       var c = wire();
       if (c) c.tilt(x * 78, y * 78);
       for (var i = 0; i < names.length; i++) names[i].show(0.5 + x * 0.5);
+      root.style.setProperty('--tt', (x * 90).toFixed(1) + 'deg');   /* the small signs turn with the tilt */
     });
   }
 
