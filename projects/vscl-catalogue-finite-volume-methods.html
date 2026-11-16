@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Finite-volume methods · The Numerical Proving Ground</title>
+<meta name="description" content="Finite-volume methods in the catalogue of VSCL: 30 items by source and chapter, each with a Lean statement.">
+<link rel="icon" href="../favicon.svg?v=af77b8a539" type="image/svg+xml">
+<link rel="stylesheet" href="../static/css/site.css?v=af77b8a539">
+<link rel="preload" href="../static/fonts/IBMPlexSerif-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../static/fonts/IBMPlexSerif-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../static/fonts/IBMPlexMono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../static/fonts/IBMPlexMono-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script src="../static/js/site.js?v=af77b8a539"></script>
+</head>
+<body class="sub">
+<header class="top" id="top"><nav class="topin m" aria-label="Site"><div class="navl"><a class="home" href="../index.html" aria-label="The Numerical Proving Ground"><span class="nf">The Numerical Proving Ground</span><span class="ns">TNPG</span></a><a href="../notes/index.html">Notes</a><a href="../records/index.html">Records</a><a href="../projects/index.html" aria-current="true">Projects</a></div><a class="emblem" href="../index.html" aria-label="The Numerical Proving Ground, front page"><svg viewBox="-112 -112 224 224" aria-hidden="true"><defs><linearGradient id="mk-run" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="100" y2="0"><stop offset="0" style="stop-color:var(--ink);stop-opacity:0"/><stop offset="1" style="stop-color:var(--ink);stop-opacity:1"/></linearGradient><mask id="mk-shape" maskUnits="userSpaceOnUse" x="-112" y="-112" width="224" height="224" mask-type="alpha" style="mask-type:alpha"><use href="#mk-ring"/><use href="#mk-omega"/></mask></defs><g class="mk" fill="currentColor"><g class="mk-o" id="mk-ring"><g class="mk-s"><g transform="rotate(-45)"><g class="mk-1"><path d="M99.39,11.05 A100,100 0 0 1 -99.39,11.05 L-77.21,11.05 A78,78 0 0 0 77.21,11.05 Z"/></g><g class="mk-2"><path d="M99.39,11.05 A100,100 0 0 1 -99.39,11.05 L-77.21,11.05 A78,78 0 0 0 77.21,11.05 Z" transform="rotate(180)"/></g></g></g></g><g class="mk-3" id="mk-omega"><path d="M-6.75,58.11 A58.5,58.5 0 1 1 6.75,58.11 L6.75,37.90 A38.5,38.5 0 1 0 -6.75,37.90 Z"/></g><rect class="mk-w" x="-112" y="-112" width="224" height="224" fill="url(#mk-run)" mask="url(#mk-shape)"/></g><path class="br" d="M-104.6,-73 V-104.6 H-73 M-104.6,73 V104.6 H-73 M104.6,-73 V-104.6 H73 M104.6,73 V104.6 H73"/><path class="ch" d="M-104.6,-104.6 h4.2 l-4.2,4.2 z M104.6,-104.6 h-4.2 l4.2,4.2 z M-104.6,104.6 h4.2 l-4.2,-4.2 z M104.6,104.6 h-4.2 l4.2,-4.2 z"/></svg></a><div class="navr"><a href="../related.html">Related work</a><a href="../about.html">About</a><button type="button" class="theme" hidden></button></div><svg class="q qtl" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><use href="../static/img/frame.svg?v=af77b8a539#tl"/></svg><svg class="q qtr" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><use href="../static/img/frame.svg?v=af77b8a539#tr"/></svg><span class="stub l" aria-hidden="true"></span><span class="stub r" aria-hidden="true"></span></nav></header>
+<div class="page">
+<div class="frame">
+<svg class="q qb" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><use href="../static/img/frame.svg?v=af77b8a539#b"/></svg><svg class="q ql" viewBox="0 0 14 1000" preserveAspectRatio="none" aria-hidden="true"><use href="../static/img/frame.svg?v=af77b8a539#l3"/></svg><svg class="q qr" viewBox="0 0 14 1000" preserveAspectRatio="none" aria-hidden="true"><use href="../static/img/frame.svg?v=af77b8a539#r3"/></svg>
+<div class="inner">
+<main>
+<header class="ph plain"><nav class="crumbs m" aria-label="Where this page is"><ol><li><a href="index.html">Projects</a></li><li><a href="p1-vscl.html">VSCL</a></li><li><a href="vscl-catalogue.html">Catalogue</a></li></ol></nav><div class="idrow"><h1>Finite-volume methods</h1></div><svg class="qh b" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0,6.16l20-.86 20 .2 20 .11 20 .02 20-.04 20-.11 20-.04 20-.14 20-.08 20 .09 20 .34 20-.34 20 .33 20 .32 20 .2 20-.05 20 .33 20-.22 20 .2 20 .07 20-.15 20-.04 20-.16 20 .11 20-.13 20-.15 20 .01 20-.15 20 .07 20 .08 20 .12 20 .16 20-.07 20 .3 20-.12 20 .57 20 .34 20 .08 20 .21 20-.16 20-.06 20 .09 20 .17 20 .01 20-.17 20-.03 20 .31 20 .24 20 .08 20-.07 0 .4-20 .57-20 .27-20-.12-20-.19-20 .11-20 .18-20-.09-20-.27-20-.18-20 .04-20 .22-20-.13-20 .01-20-.26-20-.07-20-.93-20-.26-20 .13-20-.1-20-.1-20-.04-20-.02-20 .22-20 .04-20 .19-20 .11-20-.18-20 .04-20-.04-20 .13-20-.05-20-.18-20 .24-20-.31-20 .07-20-.15-20-.25-20-.25-20 .42-20-.31-20-.09-20 .03-20 .08-20 0-20 .09-20 .09-20 .08-20 .01-20-.1-20-.52Z"/></svg></header><div class="prose"><p>The <a href="vscl-catalogue.html">catalogue's first page</a> explains what each entry shows.</p></div><div class="cols"><nav class="side m" aria-label="Finite-volume methods, at the side"><p>Finite-volume methods</p><ul><li><a href="#leveque-1">LeVeque, Chapter 1 · Introduction</a></li><li><a href="#eymard-1">Eymard, Gallouët and Herbin, Chapter 1 · Introduction</a></li></ul></nav><div class="colm"><nav class="onpage m" id="chapters" aria-label="Chapters"><p>Chapters</p><ul><li><a href="#leveque-1">LeVeque, Chapter 1 · Introduction</a></li><li><a href="#eymard-1">Eymard, Gallouët and Herbin, Chapter 1 · Introduction</a></li></ul></nav><div class="filt m" hidden><label for="f-catlist">Filter this page</label><span class="fbox"><input type="search" id="f-catlist" class="filter" data-for="catlist" autocomplete="off" spellcheck="false" placeholder="a number or a word"><svg class="qh b lt" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1000,6.65l-20-.53-20 .17-20 .11-20 0-20-.23-20 .22-20-.07-20-.17-20-.04-20 .12-20-.28-20 0-20 .18-20-.04-20-.09-20 .13-20-.32-20 .19-20-.03-20 .03-20 .3-20 .12-20-.01-20-.2-20 .05-20 .19-20 .26-20-.1-20 .28-20 .13-20-.02-20-.07-20 .12-20 .16-20-.08-20 .26-20 .22-20-.07-20-.3-20 .13-20 .16-20-.19-20-.34-20 .1-20-.17-20-.39-20-.08-20-.04-20-.01-20 .12 0 .4 20 .14 20 .24 20 .08 20 .13 20 .42 20 .17 20-.13 20 .3 20 .16 20-.16 20-.13 20 .28 20 .04 20-.25 20-.25 20 .11 20-.09 20-.04 20 .15 20 .05 20-.11 20-.27 20 .12 20-.25 20-.18 20-.04 20 .18 20-.02 20-.03 20-.85 20 .01 20 .09 20-.1 20 .4 20-.09 20 .12 20 .09 20-.13 20 .04 20 .32 20-.12 20-.03 20 .07 20 0 20-.24 20 .26 20 .06 20-.06 20-.11 20-.23Z"/></svg></span><span class="fcount soft" aria-live="polite"></span><button type="button" class="chip openall">Show Lean statements</button></div><div id="catlist"><section data-group><div class="sec sub"><svg class="qh t lt" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1000,7.51l-20-.35-20-.01-20-.22-20-.34-20-.34-20-.26-20 .11-20-.25-20-.14-20 .08-20-.05-20 .18-20 .03-20 .04-20 .04-20-.01-20 .46-20 .05-20-.2-20-.06-20 .13-20 .07-20-.43-20 .16-20-.15-20-.21-20 .01-20 .05-20-.07-20-.04-20-.08-20-.09-20 .18-20-.33-20 .2-20-.12-20-.1-20 .18-20-.21-20-.24-20 .05-20 .12-20 .13-20 .02-20 .6-20 .17-20 .12-20 .08-20 .1-20-.12 0 .4 20 .23 20 .13 20 .02 20-.03 20-.13 20-.59 20-.01 20-.11 20-.12 20-.03 20 .24 20 .2 20-.19 20 .08 20 .13 20-.2 20 .35 20-.16 20 .1 20 .1 20 .06 20 .09 20-.02 20 .01 20 .22 20 .17 20-.17 20 .42 20-.08 20-.12 20 .05 20 .15 20-.09 20-.5 20-.01 20-.01 20-.01 20 .02 20-.14 20 .07 20-.05 20 .19 20 .31 20-.05 20 .29 20 .36 20 .36 20 .23 20 .03 20-.73Z"/></svg><h2 class="bk2"><a href="https://doi.org/10.1017/CBO9780511791253">R. J. LeVeque, Finite Volume Methods for Hyperbolic Problems, Cambridge University Press, 2002</a></h2></div><section data-group><h3 class="ch3" id="leveque-1">Chapter 1 · Introduction <a class="up" href="#chapters">all chapters</a></h3><ul class="tks"><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">LeVeque&#x27;s hyperbolicity definition is exactly the existence of <code>m</code> linearly independent corresponding real eigenvectors.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_hyperbolicMatrixDefinition {m : ℕ}
+    (coefficient : Matrix (Fin m) (Fin m) ℝ) :
+    leveque01IsHyperbolicMatrix coefficient ↔
+      ∃ (eigenvalues : Fin m → ℝ)
+          (eigenvectors : Fin m → (Fin m → ℝ)),
+        LinearIndependent ℝ eigenvectors ∧
+          ∀ p, coefficient.mulVec (eigenvectors p) =
+            eigenvalues p • eigenvectors p</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Hyperbolicity.lean#L28-L37">leveque01_<wbr>hyperbolic<wbr>Matrix<wbr>Definition</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The Chapter 1 cell-average definition, with the nondegenerate-cell and Bochner-integrability assumptions made explicit.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_finiteVolumeCellAverage_spec {m : ℕ}
+    (state : ℝ → (Fin m → ℝ)) {left right : ℝ}
+    (hcell : left &lt; right)
+    (hstate : IntervalIntegrable state MeasureTheory.volume left right) :
+    IsOneDimensionalCellAverage state left right
+      (leveque01_finiteVolumeCellAverage state left right)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/FiniteVolumeCellAverage.lean#L24-L31">leveque01_<wbr>finite<wbr>Volume<wbr>Cell<wbr>Average_<wbr>spec</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Local normalized reference averages, numerical flux update, and conditional error control.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_finiteVolumeLocalFluxUpdate_sourceContract {m : ℕ} (hm : 0 &lt; m)
+    {Cell Face : Type*}
+    (q : ℝ → ℝ → (Fin m → ℝ)) (flux : (Fin m → ℝ) → (Fin m → ℝ))
+    (numericalOld : Cell → (Fin m → ℝ)) (rule : (Cell → (Fin m → ℝ)) → Face → (Fin m → ℝ))
+    (cell : Cell) (leftFace rightFace : Face)
+    {a b s t : ℝ} (hab : a &lt; b) (hst : s &lt; t)
+    (holdDensity : IntervalIntegrable (fun x =&gt; q x s) volume a b)
+    (hnewDensity : IntervalIntegrable (fun x =&gt; q x t) volume a b)
+    (hleftFlux : IntervalIntegrable (fun τ =&gt; flux (q a τ)) volume s t)
+    (hrightFlux : IntervalIntegrable (fun τ =&gt; flux (q b τ)) volume s t)
+    (hphysicalBalance : (∫ x in a..b, (fun x =&gt; q x t) x) - (∫ x in a..b, (fun x =&gt; q x s) x) =
+      ∫ τ in s..t, (flux (q a τ) - flux (q b τ))) :
+    0 &lt; m ∧
+    IsOneDimensionalCellAverage (fun x =&gt; q x s) a b (oneDimensionalCellAverage (fun x =&gt; q x s) a b) ∧
+    IsOneDimensionalCellAverage (fun x =&gt; q x t) a b (oneDimensionalCellAverage (fun x =&gt; q x t) a b) ∧
+    IsOneDimensionalCellAverage (fun τ =&gt; flux (q a τ)) s t
+      (oneDimensionalCellAverage (fun τ =&gt; flux (q a τ)) s t) ∧
+    IsOneDimensionalCellAverage (fun τ =&gt; flux (q b τ)) s t
+      (oneDimensionalCellAverage (fun τ =&gt; flux (q b τ)) s t) ∧
+    oneDimensionalCellAverage (fun x =&gt; q x s) a b =
+      cellVolumeAverage volume (Set.Ioc a b) (fun x =&gt; q x s) ∧
+    oneDimensionalCellAverage (fun τ =&gt; flux (q a τ)) s t =
+      cellVolumeAverage volume (Set.Ioc s t) (fun τ =&gt; flux (q a τ)) ∧
+    finiteVolumeCellAverageUpdate (t - s) (b - a) (numericalOld cell)
+      (rule numericalOld rightFace - rule numericalOld leftFace) =
+      numericalOld cell - ((t - s) / (b - a)) •
+        (rule numericalOld rightFace - rule numericalOld leftFace) ∧
+    (b - a) • (finiteVolumeCellAverageUpdate (t - s) (b - a) (numericalOld cell)
+      (rule numericalOld rightFace - rule numericalOld leftFace) -
+      oneDimensionalCellAverage (fun x =&gt; q x t) a b) =
+      (b - a) • (numericalOld cell - oneDimensionalCellAverage (fun x =&gt; q x s) a b) +
+        (t - s) • ((rule numericalOld leftFace - oneDimensionalCellAverage (fun τ =&gt; flux (q a τ)) s t) -
+          (rule numericalOld rightFace - oneDimensionalCellAverage (fun τ =&gt; flux (q b τ)) s t)) ∧
+    ∀ oldBound leftBound rightBound : ℝ,
+      ‖numericalOld cell - oneDimensionalCellAverage (fun x =&gt; q x s) a b‖ ≤ oldBound →
+      ‖rule numericalOld leftFace - oneDimensionalCellAverage (fun τ =&gt; flux (q a τ)) s t‖ ≤ leftBound →
+      ‖rule numericalOld rightFace - oneDimensionalCellAverage (fun τ =&gt; flux (q b τ)) s t‖ ≤ rightBound →
+      ‖finiteVolumeCellAverageUpdate (t - s) (b - a) (numericalOld cell)
+        (rule numericalOld rightFace - rule numericalOld leftFace) -
+        oneDimensionalCellAverage (fun x =&gt; q x t) a b‖ ≤
+        oldBound + (t - s) / (b - a) * (leftBound + rightBound)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/FiniteVolumeLocalFluxUpdate.lean#L23-L64">leveque01_<wbr>finite<wbr>Volume<wbr>Local<wbr>Flux<wbr>Update_<wbr>source<wbr>Contract</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Conservation of contaminant mass with the constant physical flux <code>f(q) = ū q</code> implies the scalar advection equation under explicit classical smoothness and differentiation-under-the-integral hypotheses. This records the source&#x27;s conservation-to-advection direction rather than assuming the PDE as the theorem above does.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_advectionLinearFlux_fromMassConservation
+    (q : ℝ → ℝ → ℝ) (speed t : ℝ)
+    (qt qx fluxx : ℝ → (Fin 1 → ℝ))
+    (hintegralMass : IsIntegralConservationLawSolution
+      (scalarAsOneComponentSystem q)
+      (constantLinearFlux (constantCoefficientScalarMatrix speed)))
+    (hqt : ∀ x,
+      HasDerivAt (fun τ =&gt; scalarAsOneComponentSystem q x τ) (qt x) t)
+    (hqx : ∀ x,
+      HasDerivAt (fun ξ =&gt; scalarAsOneComponentSystem q ξ t) (qx x) x)
+    (hfluxx : ∀ x,
+      HasDerivAt
+        (fun ξ =&gt; constantLinearFlux
+          (constantCoefficientScalarMatrix speed)
+          (scalarAsOneComponentSystem q ξ t))
+        (fluxx x) x)
+    (hqtIntegrable : ∀ a b, IntervalIntegrable qt volume a b)
+    (hfluxxIntegrable : ∀ a b, IntervalIntegrable fluxx volume a b)
+    (hinterchange : ∀ a b,
+      HasDerivAt
+        (fun τ =&gt; ∫ x in a..b, scalarAsOneComponentSystem q x τ)
+        (∫ x in a..b, qt x) t)
+    (hresidualContinuous : Continuous fun x =&gt; qt x + fluxx x) :
+    (∀ state : Fin 1 → ℝ,
+      constantLinearFlux (constantCoefficientScalarMatrix speed) state =
+        fun _ =&gt; speed * state 0) ∧
+      ∀ x, leveque01_equation02_scalarAdvectionAt q speed x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/AdvectionLinearFlux.lean#L49-L80">leveque01_<wbr>advection<wbr>Linear<wbr>Flux_<wbr>from<wbr>Mass<wbr>Conservation</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">If the state itself has a spatial derivative, equation (1.8) with <code>f(q) = A q</code> and equation (1.1) are equivalent pointwise.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_linearFlux_specializesEquation01
+    {m : ℕ} (q : ℝ → ℝ → (Fin m → ℝ))
+    (coefficient : Matrix (Fin m) (Fin m) ℝ) (x t : ℝ)
+    (qx : Fin m → ℝ)
+    (hqx : HasDerivAt (fun ξ =&gt; q ξ t) qx x) :
+    leveque01_equation08_conservationLawAt q
+        (constantLinearFlux coefficient) x t ↔
+      leveque01_equation01_constantLinearSystemAt q coefficient x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/LinearFluxSpecialization.lean#L30-L39">leveque01_<wbr>linear<wbr>Flux_<wbr>specializes<wbr>Equation01</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The positive-material sound speed in (1.7) gives the hyperbolic second-order principal part asserted immediately after that equation.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation07_secondOrderHyperbolic
+    (bulkModulus density : ℝ)
+    (hbulkModulus : 0 &lt; bulkModulus) (hdensity : 0 &lt; density) :
+    (wavePrincipalPart (Real.sqrt (bulkModulus / density))).IsHyperbolic</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/SecondOrderHyperbolicity.lean#L18-L23">leveque01_<wbr>equation07_<wbr>second<wbr>Order<wbr>Hyperbolic</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">General scalar-equation decomposition on printed page 3. One eigenbasis is fixed for all fields and all points; the equivalence includes the reverse reconstruction of a system solution from its scalar equations.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_hyperbolicSystem_scalarWaveDecomposition {m : ℕ}
+    (A : Matrix (Fin m) (Fin m) ℝ) (hA : IsRealHyperbolicMatrix A) :
+    ∃ (speeds : Fin m → ℝ) (b : Module.Basis (Fin m) ℝ (Fin m → ℝ)),
+      (∀ i, A.mulVec (b i) = speeds i • b i) ∧
+      ∀ (q : ℝ → ℝ → (Fin m → ℝ)) (x t : ℝ),
+        IsConstantCoefficientLinearSystemSolutionAt q A x t ↔
+          ∀ i, IsLinearAdvectionSolutionAt
+            (fun ξ τ =&gt; b.equivFun (q ξ τ) i) (speeds i) x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/EigenbasisDecoupling.lean#L16-L26">leveque01_<wbr>hyperbolic<wbr>System_<wbr>scalar<wbr>Wave<wbr>Decomposition</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">A positive smooth pointwise hyperbolic scalar transport coefficient need not admit any local flux for the unchanged density, even when that flux is allowed to depend explicitly on position. This does not rule out changes of density or integrating factors.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_exists_hyperbolic_variableCoefficient_without_localFlux :
+    ∃ coefficient : ℝ → ℝ,
+      ContDiff ℝ (⊤ : ℕ∞) coefficient ∧
+      (∀ x, 0 &lt; coefficient x) ∧
+      (∀ x, IsRealHyperbolicMatrix (constantCoefficientScalarMatrix (coefficient x))) ∧
+      ¬ ∃ flux : ℝ → ℝ → ℝ, RepresentsScalarTransportFlux coefficient flux</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/VariableCoefficientConservationForm.lean#L22-L31">leveque01_<wbr>exists_<wbr>hyperbolic_<wbr>variable<wbr>Coefficient_<wbr>without_<wbr>local<wbr>Flux</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">For a scalar contaminant with constant advective speed, the source integral is exactly the mass change after boundary exchange. Homogeneous conservation holds precisely when every rectangle source contribution vanishes. The last clause permits an exceptional time set depending on the fixed spatial interval. No spatial state derivative or source sign is prescribed.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_sourceTermsRectangleBalance
+    {q production : ℝ → ℝ → Fin 1 → ℝ} (speed : ℝ)
+    (h : IsRectangleBalanceLawSolution q (fun state =&gt; speed • state) production) :
+    IsRectangleBalanceLawSolution q (fun state =&gt; speed • state) production ∧
+    (∀ a b s t,
+      (∫ τ in s..t, ∫ x in a..b, production x τ) =
+        ((∫ x in a..b, q x t) - (∫ x in a..b, q x s)) -
+          (∫ τ in s..t, speed • q a τ - speed • q b τ)) ∧
+    (IsRectangleConservationLawSolution q (fun state =&gt; speed • state) ↔
+      ∀ a b s t, (∫ τ in s..t, ∫ x in a..b, production x τ) = 0) ∧
+    (¬ IsRectangleConservationLawSolution q (fun state =&gt; speed • state) ↔
+      ∃ a b s t, (∫ τ in s..t, ∫ x in a..b, production x τ) ≠ 0) ∧
+    (∀ a b, ∀ᵐ t,
+      HasDerivAt (fun s =&gt; ∫ x in a..b, q x s)
+        (speed • q a t - speed • q b t + ∫ x in a..b, production x t) t)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/SourceTermsRectangleBalance.lean#L22-L41">leveque01_<wbr>source<wbr>Terms<wbr>Rectangle<wbr>Balance</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Dependence only on current data is exactly an update on attainable current data, with arbitrary admissible histories and next-time solution types.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_oneStepMethod_iff_attainableCurrentDataMap
+    {History : Sort*} {CurrentData : Type*} {NextData : Sort*}
+    (current : History → CurrentData) (advance : History → NextData) :
+    (∀ history₁ history₂, current history₁ = current history₂ →
+      advance history₁ = advance history₂) ↔
+      ∃ step : Set.range current → NextData,
+        advance = step ∘ Set.rangeFactorization current</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/OneStepCurrentData.lean#L22-L30">leveque01_<wbr>one<wbr>Step<wbr>Method_<wbr>iff_<wbr>attainable<wbr>Current<wbr>Data<wbr>Map</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The local-material interpretation gives both actual component jumps, with separate side inequalities. Initial data retains its free origin value, while the material need not be constant away from the interface.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_materialInterfaceLocalRiemannData {Material State : Type*}
+    [TopologicalSpace Material] [TopologicalSpace State]
+    [T2Space Material] [T2Space State]
+    {medium : ℝ → Material} {initialState : ℝ → State}
+    {leftMaterial rightMaterial : Material} {leftState rightState : State}
+    (hmedium : HasJumpAt medium 0 leftMaterial rightMaterial)
+    (hstate : IsRiemannData initialState leftState rightState)
+    (hdistinct : leftState ≠ rightState) :
+    (HasJumpAt medium 0 leftMaterial rightMaterial ∧
+      HasJumpAt initialState 0 leftState rightState) ∧
+    (Tendsto (fun x =&gt; (medium x, initialState x)) (𝓝[&lt;] 0)
+        (𝓝 (leftMaterial, leftState)) ∧
+      Tendsto (fun x =&gt; (medium x, initialState x)) (𝓝[&gt;] 0)
+        (𝓝 (rightMaterial, rightState)) ∧
+      leftMaterial ≠ rightMaterial ∧ leftState ≠ rightState) ∧
+    IsRiemannData initialState leftState rightState ∧
+    ¬ ContinuousAt medium 0 ∧ ¬ ContinuousAt initialState 0 ∧
+    (∃ originState, initialState = riemannData leftState originState rightState)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/MaterialInterfaceLocalRiemannData.lean#L22-L42">leveque01_<wbr>material<wbr>Interface<wbr>Local<wbr>Riemann<wbr>Data</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">A nonlinear C1 flux admits a conserved field that starts smoothly, remains spatially continuous before a positive time, and has distinct shock traces then.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_nonlinear_shock_formation :
+    ∃ (flux : ℝ → ℝ) (q : ℝ → ℝ → ℝ) (T ξ qL qR : ℝ),
+      ContDiff ℝ 1 flux ∧
+      (¬ ∃ a b : ℝ, ∀ u, flux u = a * u + b) ∧
+      IsRectangleConservationLawSolution q flux ∧
+      ContDiff ℝ ⊤ (fun x =&gt; q x 0) ∧
+      0 &lt; T ∧
+      (∀ t, 0 ≤ t → t &lt; T → Continuous (fun x =&gt; q x t)) ∧
+      Tendsto (fun x =&gt; q x T) (𝓝[&lt;] ξ) (𝓝 qL) ∧
+      Tendsto (fun x =&gt; q x T) (𝓝[&gt;] ξ) (𝓝 qR) ∧ qR &lt; qL</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/NonlinearShockFormation.lean#L28-L39">leveque01_<wbr>nonlinear_<wbr>shock_<wbr>formation</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The selected first-order problem-data classification and its explicit equal-state and distinct-jump constructor branches.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_riemannProblemDataClassification {m : ℕ}
+    (problem : FirstOrderInitialValueProblem (Fin (m + 1))) :
+    (problem.IsRiemann ↔
+      (∃ leftState rightState,
+        problem.governing.IsHyperbolic ∧
+        leftState ∈ problem.governing.admissibleStates ∧
+        rightState ∈ problem.governing.admissibleStates ∧
+        (∀ x, x &lt; 0 → problem.initialState x = leftState) ∧
+        (∀ x, 0 &lt; x → problem.initialState x = rightState)) ∧
+      (∀ x t state qt qx,
+        problem.governing.residual x t state qt qx = 0 ↔
+          qt + (problem.governing.principal x t state).mulVec qx =
+            problem.governing.forcing x t state)) ∧
+    (problem.IsJumpRiemann ↔
+      ∃ leftState rightState,
+        problem.IsRiemannWithStates leftState rightState ∧ leftState ≠ rightState) ∧
+    (∀ (leftState origin rightState : Fin (m + 1) → ℝ),
+      problem.governing.IsHyperbolic →
+      leftState ∈ problem.governing.admissibleStates →
+      rightState ∈ problem.governing.admissibleStates →
+      (fromStates problem.governing leftState origin rightState).IsRiemannWithStates
+          leftState rightState ∧
+      (leftState = rightState →
+        ¬ (fromStates problem.governing leftState origin rightState).IsJumpRiemann) ∧
+      (leftState ≠ rightState →
+        (fromStates problem.governing leftState origin rightState).IsJumpRiemann))</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/RiemannProblemDataClassification.lean#L32-L59">leveque01_<wbr>riemann<wbr>Problem<wbr>Data<wbr>Classification</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">A real hyperbolic matrix gives a Riemann solution by finite eigenmode superposition. Conservation is the time-integrated rectangle balance, and the origin value is independently selected.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_linearRiemann_eigensolution
+    {ι : Type*} [Fintype ι] {coefficient : Matrix ι ι ℝ}
+    (hcoefficient : IsRealHyperbolicMatrix coefficient)
+    (leftState valueAtOrigin rightState : ι → ℝ) :
+    ∃ (eigenvalues : ι → ℝ) (eigenbasis : Module.Basis ι ℝ (ι → ℝ)),
+      (∀ p, coefficient.mulVec (eigenbasis p) = eigenvalues p • eigenbasis p) ∧
+      IsRectangleConservationLawSolution
+        (linearRiemannSolution eigenbasis eigenvalues leftState valueAtOrigin rightState)
+        coefficient.mulVec ∧
+      (∀ x, linearRiemannSolution eigenbasis eigenvalues leftState valueAtOrigin rightState x 0 =
+        riemannData leftState valueAtOrigin rightState x) ∧
+      (∀ x t, 0 &lt; t →
+        linearRiemannSolution eigenbasis eigenvalues leftState valueAtOrigin rightState x t =
+        linearRiemannSolution eigenbasis eigenvalues leftState valueAtOrigin rightState (x / t) 1)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/LinearRiemannEigensolution.lean#L16-L32">leveque01_<wbr>linear<wbr>Riemann_<wbr>eigensolution</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Sufficient classical smoothness and differentiation under the integral turn equation (1.10) into the pointwise equation (1.8).</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_integralLaw_impliesDifferentialLaw_of_smooth
+    {m : ℕ} (q : ℝ → ℝ → (Fin m → ℝ))
+    (flux : (Fin m → ℝ) → (Fin m → ℝ))
+    (qt fluxx : ℝ → (Fin m → ℝ)) (t : ℝ)
+    (hintegralLaw : leveque01Equation10IntegralConservation q flux)
+    (hqt : ∀ x, HasDerivAt (fun τ =&gt; q x τ) (qt x) t)
+    (hfluxx : ∀ x,
+      HasDerivAt (fun ξ =&gt; flux (q ξ t)) (fluxx x) x)
+    (hqtIntegrable : ∀ a b, IntervalIntegrable qt volume a b)
+    (hfluxxIntegrable : ∀ a b, IntervalIntegrable fluxx volume a b)
+    (hinterchange : ∀ a b,
+      HasDerivAt (fun τ =&gt; ∫ x in a..b, q x τ)
+        (∫ x in a..b, qt x) t)
+    (hresidualContinuous : Continuous fun x =&gt; qt x + fluxx x) :
+    ∀ x, leveque01_equation08_conservationLawAt q flux x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/IntegralToDifferential.lean#L21-L37">leveque01_<wbr>integral<wbr>Law_<wbr>implies<wbr>Differential<wbr>Law_<wbr>of_<wbr>smooth</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The acoustics matrix has the two nonzero eigenvectors displayed here, with eigenvalues <code>-c</code> and <code>+c</code> for <code>c = sqrt (K / ρ)</code>. Carrying an arbitrary differentiable profile by either eigenvector gives a system solution translated at that eigenvalue, making the source&#x27;s wave-speed interpretation explicit.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_acousticsMatrixEigenvalues
+    {bulkModulus density : ℝ}
+    (hbulkModulus : 0 &lt; bulkModulus) (hdensity : 0 &lt; density) :
+    let soundSpeed := Real.sqrt (bulkModulus / density)
+    0 &lt; soundSpeed ∧
+      linearAcousticsLeftEigenvector density soundSpeed ≠ 0 ∧
+      (linearAcousticsMatrix bulkModulus density).mulVec
+          (linearAcousticsLeftEigenvector density soundSpeed) =
+        (-soundSpeed) • linearAcousticsLeftEigenvector density soundSpeed ∧
+      (∀ {profile : ℝ → ℝ} {profile&#x27; : ℝ} (x t : ℝ),
+        HasDerivAt profile profile&#x27; (x - (-soundSpeed) * t) →
+          IsConstantCoefficientLinearSystemSolutionAt
+            (eigenmodeTravelingWave profile (-soundSpeed)
+              (linearAcousticsLeftEigenvector density soundSpeed))
+            (linearAcousticsMatrix bulkModulus density) x t) ∧
+      linearAcousticsRightEigenvector density soundSpeed ≠ 0 ∧
+      (linearAcousticsMatrix bulkModulus density).mulVec
+          (linearAcousticsRightEigenvector density soundSpeed) =
+        soundSpeed • linearAcousticsRightEigenvector density soundSpeed ∧
+      ∀ {profile : ℝ → ℝ} {profile&#x27; : ℝ} (x t : ℝ),
+        HasDerivAt profile profile&#x27; (x - soundSpeed * t) →
+          IsConstantCoefficientLinearSystemSolutionAt
+            (eigenmodeTravelingWave profile soundSpeed
+              (linearAcousticsRightEigenvector density soundSpeed))
+            (linearAcousticsMatrix bulkModulus density) x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/AcousticsEigenvalues.lean#L17-L46">leveque01_<wbr>acoustics<wbr>Matrix<wbr>Eigenvalues</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Every pointwise solution of the linear-acoustics equations is a conservation-law solution with flux <code>q ↦ A q</code> for the acoustics matrix.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_acoustics_hasConservationForm
+    (pressure velocity : ℝ → ℝ → ℝ)
+    (bulkModulus density x t : ℝ) (hdensity : density ≠ 0)
+    (hacoustics : leveque01_equation05_linearAcousticsAt
+      pressure velocity bulkModulus density x t) :
+    leveque01_equation08_conservationLawAt
+      (linearAcousticsState pressure velocity)
+      (constantLinearFlux (linearAcousticsMatrix bulkModulus density)) x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/AcousticsConservationForm.lean#L20-L29">leveque01_<wbr>acoustics_<wbr>has<wbr>Conservation<wbr>Form</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The notation denotes the value on the entire positive-time ray x/t=0. Initial data and the evolution equation are retained for the selected field; uniqueness between different selected fields is not a premise or conclusion.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_riemannRayZeroValue_iff {State : Type*}
+    (evolutionEquation : (ℝ → ℝ → State) → Prop)
+    (leftState rightState : State) (q : ℝ → ℝ → State)
+    (_hriemann : leveque01RiemannInitialConfiguration evolutionEquation leftState rightState q)
+    (hself : IsPositiveTimeSelfSimilar q) (value : State) :
+    leveque01RiemannRayZeroValue q = value ↔ ∀ t, 0 &lt; t → q 0 t = value</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/RiemannRayZero.lean#L23-L31">leveque01_<wbr>riemann<wbr>Ray<wbr>Zero<wbr>Value_<wbr>iff</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The flux is hyperbolic at a state exactly when its actual Jacobian admits a complete independent real eigenvector family. Repeated eigenvalues are allowed.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_fluxJacobian_hyperbolicity_iff {m : ℕ}
+    (flux : (Fin m → ℝ) → (Fin m → ℝ)) (state : Fin m → ℝ)
+    (derivative : (Fin m → ℝ) →L[ℝ] (Fin m → ℝ))
+    (hderivative : HasFDerivAt flux derivative state) :
+    IsHyperbolicFluxAt flux state ↔
+      ∃ (eigenvalues : Fin m → ℝ) (eigenvectors : Fin m → (Fin m → ℝ)),
+        LinearIndependent ℝ eigenvectors ∧
+          ∀ p, derivative (eigenvectors p) = eigenvalues p • eigenvectors p</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/FluxJacobianHyperbolicity.lean#L16-L25">leveque01_<wbr>flux<wbr>Jacobian_<wbr>hyperbolicity_<wbr>iff</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Every real scalar constant-coefficient equation is hyperbolic. Its one-by-one coefficient matrix has eigenvalue <code>speed</code> and the standard basis as a corresponding real eigenbasis.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_scalarEquation_isHyperbolic (speed : ℝ) :
+    leveque01IsHyperbolicMatrix
+      (constantCoefficientScalarMatrix speed)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/ScalarHyperbolicity.lean#L18-L23">leveque01_<wbr>scalar<wbr>Equation_<wbr>is<wbr>Hyperbolic</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The two acoustic characteristic variables satisfy scalar one-way wave equations with the opposite speeds <code>+c</code> and <code>-c</code>.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_acousticsTwoWaveDecomposition
+    {bulkModulus density : ℝ}
+    (system : LinearAcousticsSolution bulkModulus density)
+    (hbulkModulus : 0 &lt; bulkModulus) (hdensity : 0 &lt; density) :
+    ∀ x t,
+      leveque01_equation04_oneWayWaveAt
+          (linearAcousticsRightInvariant system.pressure system.velocity
+            density (Real.sqrt (bulkModulus / density)))
+          (Real.sqrt (bulkModulus / density)) x t ∧
+        leveque01_equation04_oneWayWaveAt
+          (linearAcousticsLeftInvariant system.pressure system.velocity
+            density (Real.sqrt (bulkModulus / density)))
+          (-Real.sqrt (bulkModulus / density)) x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/AcousticsModes.lean#L88-L102">leveque01_<wbr>acoustics<wbr>Two<wbr>Wave<wbr>Decomposition</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The actual left invariant and the independently specified profile domains, under the explicitly selected physical and analytic conventions.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_acousticsLeftSolutionDomains
+    {bulkModulus density : ℝ}
+    (system : LinearAcousticsSolution bulkModulus density)
+    (hbulkModulus : 0 &lt; bulkModulus) (hdensity : 0 &lt; density) :
+    0 &lt; Real.sqrt (bulkModulus / density) ∧
+      IsLinearAdvectionSolution
+        (linearAcousticsLeftInvariant system.pressure system.velocity
+          density (Real.sqrt (bulkModulus / density)))
+        (-Real.sqrt (bulkModulus / density)) ∧
+      ∀ profile : ℝ → ℝ,
+        (∀ x t, travelingWave profile (-Real.sqrt (bulkModulus / density)) x t =
+          profile (x + Real.sqrt (bulkModulus / density) * t)) ∧
+        (∀ x t, travelingWave profile (-Real.sqrt (bulkModulus / density))
+          (x - Real.sqrt (bulkModulus / density) * t) t = profile x) ∧
+        (IsLinearAdvectionSolution
+          (travelingWave profile (-Real.sqrt (bulkModulus / density)))
+          (-Real.sqrt (bulkModulus / density)) ↔ Differentiable ℝ profile) ∧
+        (IsRectangleConservationLawSolution
+          (travelingWave profile (-Real.sqrt (bulkModulus / density)))
+          (fun state =&gt; -Real.sqrt (bulkModulus / density) * state) ↔
+          ∀ a b, IntervalIntegrable profile volume a b)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/AcousticsLeftSolutionDomains.lean#L32-L54">leveque01_<wbr>acoustics<wbr>Left<wbr>Solution<wbr>Domains</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Equation (1.4)</p><p class="ts">The complete positive-speed scalar contract, together with the acoustic realization <code>w = p + ρ c u</code>, <code>c = sqrt (K / ρ)</code>, for every given classical pressure--velocity solution with positive material parameters. The profile derivative hypothesis applies only to the constructed-profile clause; the given-system clause uses the actual partial derivatives in its certificate.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation04_acousticOneWayModel :
+    (∀ (c : ℝ), 0 &lt; c →
+      leveque01IsHyperbolicMatrix (constantCoefficientScalarMatrix c) ∧
+        (∀ x t₁ t₂ : ℝ, t₁ &lt; t₂ → x + c * t₁ &lt; x + c * t₂) ∧
+        ∀ {profile : ℝ → ℝ} {profile&#x27; : ℝ} (x t : ℝ),
+          HasDerivAt profile profile&#x27; (x - c * t) →
+            leveque01_equation04_oneWayWaveAt
+                (travelingWave profile c) c x t ∧
+              travelingWave profile c (x + c * t) t = profile x) ∧
+      ∀ {bulkModulus density : ℝ}
+        (system : LinearAcousticsSolution bulkModulus density),
+        0 &lt; bulkModulus → 0 &lt; density →
+        ∃ (c : ℝ), c = Real.sqrt (bulkModulus / density) ∧ 0 &lt; c ∧
+          ∃ w : ℝ → ℝ → ℝ,
+            (∀ x t, w x t = system.pressure x t + density * c * system.velocity x t) ∧
+            ∀ x t, leveque01_equation04_oneWayWaveAt w c x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Equation04AcousticModel.lean#L26-L46">leveque01_<wbr>equation04_<wbr>acoustic<wbr>One<wbr>Way<wbr>Model</a><span class="soft"> · 1 more declaration under this item</span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Equation (1.6)</p><p class="ts">The pressure--velocity equations (1.5) are exactly the constant-coefficient system with state <code>(p,u)</code> and matrix <code>[[0,K],[1/ρ,0]]</code>.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation06_acousticsMatrixForm
+    (pressure velocity : ℝ → ℝ → ℝ)
+    (bulkModulus density x t : ℝ) (_hdensity : density ≠ 0) :
+    leveque01_equation01_constantLinearSystemAt
+        (linearAcousticsState pressure velocity)
+        (linearAcousticsMatrix bulkModulus density) x t ↔
+      leveque01_equation05_linearAcousticsAt
+        pressure velocity bulkModulus density x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Equation06.lean#L17-L27">leveque01_<wbr>equation06_<wbr>acoustics<wbr>Matrix<wbr>Form</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Equation (1.9)</p><p class="ts">The spatial chain rule rewrites equation (1.8) as equation (1.9), under explicit derivatives of the state slice and the flux at the current state.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation09_quasilinearForm
+    {m : ℕ} (q : ℝ → ℝ → (Fin m → ℝ))
+    (flux : (Fin m → ℝ) → (Fin m → ℝ))
+    (fluxDerivative :
+      (Fin m → ℝ) → ((Fin m → ℝ) →L[ℝ] (Fin m → ℝ)))
+    (x t : ℝ) (qx : Fin m → ℝ)
+    (hqx : HasDerivAt (fun ξ =&gt; q ξ t) qx x)
+    (hflux : HasFDerivAt flux (fluxDerivative (q x t)) (q x t)) :
+    leveque01_equation08_conservationLawAt q flux x t ↔
+      leveque01_equation09_quasilinearAt q fluxDerivative x t</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Equation09.lean#L25-L36">leveque01_<wbr>equation09_<wbr>quasilinear<wbr>Form</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Equation (1.10)</p><p class="ts">Rectangle conservation with its integrated balance and intervalwise almost-everywhere mass rate.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation10_rectangleConservation_iff_integrated_and_ae_rate
+    {m : ℕ} (q : ℝ → ℝ → Fin m → ℝ)
+    (flux : (Fin m → ℝ) → Fin m → ℝ) :
+    IsRectangleConservationLawSolution q flux ↔
+      (∀ a b t, IntervalIntegrable (fun x =&gt; q x t) volume a b) ∧
+      (∀ x s t, IntervalIntegrable (fun τ =&gt; flux (q x τ)) volume s t) ∧
+      (∀ a b s t,
+        (∫ x in a..b, q x t) - (∫ x in a..b, q x s) =
+          ∫ τ in s..t, (flux (q a τ) - flux (q b τ))) ∧
+      (∀ a b, ∀ᵐ t, HasDerivAt (fun s =&gt; ∫ x in a..b, q x s)
+        (flux (q a t) - flux (q b t)) t)</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Equation10RectangleConservation.lean#L25-L36">leveque01_<wbr>equation10_<wbr>rectangle<wbr>Conservation_<wbr>iff_<wbr>integrated_<wbr>and_<wbr>ae_<wbr>rate</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Equation (1.11)</p><p class="ts">Equation (1.11) permits exactly one free datum: the value at the origin.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem leveque01_equation11_characterization {m : ℕ}
+    (initialState : ℝ → (Fin m → ℝ))
+    (leftState rightState : Fin m → ℝ) :
+    leveque01Equation11RiemannData initialState leftState rightState ↔
+      ∃ valueAtOrigin,
+        initialState = riemannData leftState valueAtOrigin rightState</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/LeVeque/Chapter01/Equation11.lean#L37-L43">leveque01_<wbr>equation11_<wbr>characterization</a><span class="soft"></span></p></li></ul></section></section><section data-group><div class="sec sub"><svg class="qh t lt" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0,6.68l20-.36 20 .19 20-.01 20-.09 20 .04 20-.13 20 .42 20 .04 20-.03 20-.03 20-.2 20 .41 20-.17 20-.08 20-.05 20-.1 20 .25 20-.24 20 .11 20 .1 20-.02 20-.29 20 .35 20-.15 20-.34 20-.23 20 .21 20-.45 20 .3 20-.05 20-.04 20 0 20-.06 20 .24 20-.06 20 .13 20 .06 20-.17 20 .41 20-.28 20-.11 20 .01 20-.74 20-.29 20-.11 20-.14 20 .16 20 .07 20-.1 20 .1 0 .4-20 .06-20 .37-20 .09-20 0-20 .24-20 .17-20 .42-20 .11-20-.03-20 .12-20 .29-20-.4-20 .19-20-.05-20-.12-20 .07-20-.25-20 .07-20 0-20 .04-20 .05-20-.29-20 .43-20-.21-20 .23-20 .35-20 .13-20-.37-20 .28-20 .02-20-.07-20-.05-20 .32-20-.19-20 .14-20 .04-20 .04-20 .11-20-.45-20 .19-20 .05-20 .07-20 .01-20-.37-20 .16-20-.06-20 .06-20-.04-20-.22-20-.23Z"/></svg><h2 class="bk2"><a href="https://raphaeleh.github.io/PUBLI/bookevol.pdf">R. Eymard, T. Gallouët and R. Herbin, Finite Volume Methods, January 2019 manuscript</a></h2></div><section data-group><h3 class="ch3" id="eymard-1">Chapter 1 · Introduction <a class="up" href="#chapters">all chapters</a></h3><ul class="tks"><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">The introductory local-conservativity terminology is precisely the opposite-sign identity for the outward numerical fluxes at each interface.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem localConservativity : localConservativityTarget</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/Eymard/Chapter01/LocalConservativity.lean#L16-L18">local<wbr>Conservativity</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Section 2.2&#x27;s cell data are indexed by a natural time level and a cell.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem cellUnknowns : cellUnknownsTarget</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/Eymard/Chapter01/CellUnknowns.lean#L19-L20">cell<wbr>Unknowns</a><span class="soft"></span></p></li><li class="tk" data-item data-kind="other"><p class="m tl">Result</p><p class="ts">Ordered-pair incidence gives exactly the source&#x27;s numerical-exchange antisymmetry condition, at every natural time level and every cell pair.</p><details class="data"><summary>Lean statement</summary><pre class="lean"><code>theorem conservativeExchange : conservativeExchangeTarget</code></pre></details><p class="m tm"><a href="https://github.com/the-numerical-proving-ground/lean-computational-mathematics/blob/52f695a479b3e586e701868a06627d90a80556b4/ComputationalMathematics/Source/Eymard/Chapter01/ConservativeExchange.lean#L20-L22">conservative<wbr>Exchange</a><span class="soft"></span></p></li></ul></section></section></div></div></div>
+</main>
+</div>
+</div>
+</div>
+</body>
+</html>

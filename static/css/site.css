@@ -1,0 +1,739 @@
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexMono-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexMono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/IBMPlexMono-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/IBMPlexMono-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexSerif-400-italic-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexSerif-400-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexSerif-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/IBMPlexSerif-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/IBMPlexSerif-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/IBMPlexSerif-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+/* The hub site. One stylesheet.
+   Colour rule: the accent (--acc) goes on the mark, on the name (in the header and where the definition opens
+   with it), on the figures of the tiles, on the small signs (the steps, the sidebar's rings, the theme switch), on
+   filled evidence squares, and on the one series each chart is about (work on numerical methods). Nowhere else.
+   The accent is the same blue on both pages, #94B1FF (Max, 2026-11-15: "I want the same blue in the light page").
+   On white it is light (about 2.1 to 1): there it starts the run toward the ink of the mark, the name and the
+   figures, and colours the small signs and the charts' one series.
+   On paper the accent is the ink.
+   Motion: nothing moves by itself. The mark shrinks as a page scrolls, and it answers the pointer and a press
+   (site.js). */
+
+:root{--ink:#111111;--paper:#ffffff;--acc:#94B1FF;--rule:rgba(17,17,17,.24);--p:0;--q:0;color-scheme:light}
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]){--ink:#f4f4f1;--paper:#0d0d0d;--acc:#94B1FF;--rule:rgba(244,244,241,.26);color-scheme:dark}
+}
+:root[data-theme="dark"]{--ink:#f4f4f1;--paper:#0d0d0d;--acc:#94B1FF;--rule:rgba(244,244,241,.26);color-scheme:dark}
+
+html{background:var(--paper)}
+html.js{scroll-padding-top:116px}   /* the header, and the heading that holds under it */
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Serif',Georgia,serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
+a:hover{text-decoration-thickness:2px}
+/* An underline that comes, goes or grows under the pointer does so gradually and briefly, and a little more slowly
+   on the way back (Max, 2026-11-15): 0.14s and 0.26s. At once with reduced motion. */
+a,button{transition:text-decoration-thickness .26s ease-out,text-decoration-color .26s ease-out}
+a:hover,button:hover{transition-duration:.14s}
+@media (prefers-reduced-motion:reduce){a,button{transition:none}}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.topin .navl a,.topin .navr a,.topin .navr button{padding-left:3px;padding-right:3px;margin:0 -3px}
+.navl a:focus-visible,.navr a:focus-visible,.navr button:focus-visible{outline-offset:-1px}
+.fm .nb{white-space:nowrap}
+.fm .cm{margin-right:.45em}
+.m,code{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+code{font-size:.86em;overflow-wrap:break-word}
+.soft{color:color-mix(in srgb,currentColor 74%,transparent)}
+.vh{position:absolute;left:-9999px}
+.nb{white-space:nowrap}
+
+/* ---------- the header ----------
+   The section links are in the header from the start, half on each side of the mark, just above the top line of
+   the frame. At the top of a page the mark is large and sits on that line. As the page scrolls it shrinks and rises
+   until it stands beside the links, in a gap of the line (Max, 2026-11-15). --mk and --tp are the mark's size and the space above it at the top of the page; --mk1 is
+   its size once the page has scrolled and --hd1 the header's height then. Settled, the mark stands at the level of
+   the top line: --c1, the height of its middle, puts the lower edge of its brackets (0.467 of its size below the
+   middle) level with the line, and the line stays open around it, so that no line runs through the middle. --p runs
+   from 0 to 1 with the scroll (the script sets it). --gk and --gk1 are the room between the mark and the ends of
+   the line at the top of the page and once it has scrolled. */
+body{--mk:170px;--mk1:48px;--tp:47px;--hd1:56px;--c1:calc(var(--hd1) - var(--mk1)*.467);--gk:24px;--gk1:7px;
+     --m:calc(var(--mk) - (var(--mk) - var(--mk1))*var(--p));
+     --h0:calc(var(--tp) + var(--mk)/2);
+     --h:calc(var(--h0) - (var(--h0) - var(--hd1))*var(--p));
+     --c:calc(var(--h0) - (var(--h0) - var(--c1))*var(--p));
+     --t:calc(var(--c) - var(--m)/2);
+     --gap:calc(var(--m)/2 + var(--gk) - (var(--gk) - var(--gk1))*var(--p))}
+/* the two upper corner ornaments: --os0 and --oo0 are their size and their distance from the lines at the top of
+   the page, --os1 and --oo1 once the page has scrolled. At 48px they fit between the side line and the text.
+   --q runs from 0 to 1 with the scroll. */
+body{--os0:64px;--os1:30px;--oo0:13px;--oo1:5px;
+     --os:calc(var(--os0) - (var(--os0) - var(--os1))*var(--q));
+     --oo:calc(var(--oo0) - (var(--oo0) - var(--oo1))*var(--q))}
+/* Room at the foot of a short page: with the script (fixed header), every page can scroll far enough for the mark
+   to settle (260 px, RANGE in site.js). */
+html.js body{min-height:calc(100vh + 280px)}
+.top{position:absolute;left:0;right:0;top:0;z-index:10;height:var(--h);padding:0 40px;background:var(--paper)}
+.js .top{position:fixed}
+.topin{display:block;position:relative;height:100%;max-width:1040px;margin:0 auto}
+/* The page's text does not run through the top line as it scrolls away under the header: just below the line the
+   ground is the paper's, fading out. The band keeps clear of the frame's side lines, and lies under the line. */
+.js .topin::after{content:"";position:absolute;left:9px;right:9px;top:100%;height:15px;z-index:-1;pointer-events:none;
+  background:linear-gradient(var(--paper) 40%,transparent)}
+.navl,.navr{position:absolute;bottom:9px;display:flex;flex-wrap:wrap;align-content:flex-end;gap:0 18px;font-size:13px}
+.navl{left:6px;right:calc(50% + var(--m)/2 + 22px);justify-content:flex-end}
+.navr{right:6px;left:calc(50% + var(--m)/2 + 22px);justify-content:flex-start}
+.topin a,.topin button,.topin .sep{display:inline-block;padding:6px 0;white-space:nowrap}
+/* The name is set as a name and not as one more link (Max, 2026-11-15): the text face in semibold capitals,
+   letterspaced, as tall as the links' capitals and on their baseline, without an underline.
+   Its colour is the mark's. It runs from the accent to the ink: on the dark page from the blue to white, and on
+   the light page from the same blue to black. Under the pointer it answers as the mark does: a
+   light follows the pointer across the letters and the side away from it is shaded (site.js sets --nx, --nl, --ns
+   and --na while the pointer is on it, and nothing at rest). With keyboard focus it glows steadily, as the mark. */
+.topin .home{font-family:'IBM Plex Serif',Georgia,serif;font-size:13px;line-height:calc(13px*1.55);font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;margin-right:-.14em;color:var(--acc);white-space:nowrap}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+.topin .home{background:
+    radial-gradient(circle 30px at var(--nx,50%) 50%,rgba(255,255,255,var(--nl,0)),rgba(255,255,255,0)),
+    linear-gradient(var(--na,90deg),rgba(0,0,0,0) 12%,rgba(0,0,0,var(--ns,0))),
+    linear-gradient(90deg,var(--acc),var(--ink));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+}
+@media (forced-colors:active){.topin .home{background:none;-webkit-text-fill-color:currentColor}}
+/* under the pointer the name answers with its light, not with an underline (one shows with keyboard focus, and
+   under the pointer where reduced motion leaves the light out) */
+.topin .home{text-decoration-line:none}
+.topin .home:focus-visible{text-decoration-line:underline;text-decoration-color:currentColor}
+@media (prefers-reduced-motion:reduce){.topin .home:hover{text-decoration-line:underline;text-decoration-color:currentColor}}
+.topin .home:focus-visible{filter:drop-shadow(0 0 5px var(--acc)) drop-shadow(0 0 15px var(--acc))}
+.navl{align-items:baseline}
+/* On the front page the name is not shown in the header at the top, where the definition opens with it: it
+   appears in the header's left end once the page scrolls (Max, 2026-11-15). It fades in slowly, in step with the
+   mark, and is whole when the mark has settled (260px). At the very top it can be neither clicked nor reached by
+   the keyboard (.top0, set by the script). On every other page the name is in the header from the start. Without
+   the script the header scrolls away with the page, so it stays. */
+.js .front .topin .home{opacity:var(--p)}
+.js.top0 .front .topin .home{visibility:hidden}
+.js .topin .home:focus-visible{opacity:1}
+/* The header's links carry no underline at rest: their place says what they are, and a row of short straight lines
+   stood against the hand-ruled line just below it. The underline marks the section one is in, and one shows under
+   the pointer. Links in the text keep theirs.
+   Under the pointer the underline comes gradually (see the top of this sheet): it is there all along in a clear
+   colour, and the colour changes. */
+.navl a,.navr a,.topin button{text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:transparent}
+.navl a:hover,.navr a:hover,.topin button:hover{text-decoration-color:currentColor}
+.topin a[aria-current],.topin a[aria-current]:hover{font-weight:600;text-decoration-thickness:2px;text-decoration-color:currentColor}
+.topin button{background:none;border:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-underline-offset:.2em}
+/* The switch between the dark and the light page is a sign, not a word (Max, 2026-11-15): a sun on the dark page
+   and a moon on the light one, each for the page it leads to, in the mark's colours (the build writes the two
+   pictures, see step_glyphs, and site.js says which one). Under a pointer the sign turns a little. The button is
+   24px wide to touch, and an empty character gives it a line's height where it stands alone in a row. */
+.topin .theme{position:relative;width:24px;text-decoration:none}
+.topin .theme::after{content:"\200b"}
+.topin .theme::before{content:"";position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;
+  background:linear-gradient(90deg,var(--acc),var(--ink));
+  -webkit-mask:var(--g) center/contain no-repeat;mask:var(--g) center/contain no-repeat;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){
+.topin .theme:hover::before{transform:rotate(45deg)}
+.topin .theme[data-to="dark"]:hover::before{transform:rotate(-30deg)}
+}
+@media (prefers-reduced-motion:reduce){.topin .theme::before{transition:none;transform:none!important}}
+@media (forced-colors:active){.topin .theme::before{background:ButtonText}}
+.q{position:absolute;overflow:visible;color:var(--ink)}
+.qtl{left:-7px;bottom:-7px;width:calc(50% + 8px - var(--gap));height:14px}
+.qtr{right:-6px;bottom:-7px;width:calc(50% + 7px - var(--gap));height:14px;transform:scaleX(-1)}
+.stub{position:absolute;bottom:-2px;width:2.2px;height:11px;background:var(--ink)}
+.stub.l{left:-1.1px}
+.stub.r{right:-1.1px}
+.emblem{position:absolute;left:50%;top:var(--t);width:var(--m);height:var(--m);margin-left:calc(var(--m)/-2);padding:0;color:var(--acc);background:transparent;display:block}
+.topin .emblem{padding:0}
+.emblem svg{display:block;width:100%;height:100%;overflow:visible}
+.emblem .br{stroke:var(--ink);stroke-width:1.4px;vector-effect:non-scaling-stroke;fill:none;stroke-linecap:square}
+.emblem .ch{fill:var(--ink)}
+/* the effects on the mark are drawn by the script; these only fix the centre that the parts turn and move about */
+.emblem .mk-o,.emblem .mk-1,.emblem .mk-2,.emblem .mk-3{transform-box:view-box;transform-origin:0 0}
+/* the outer ring turns with the scroll (the script writes the angle on .mk-s itself, see setProgress) */
+.emblem .mk-s{transform-box:view-box;transform-origin:0 0}
+@media (prefers-reduced-motion:reduce){.emblem .mk-s{transform:none!important}}
+@media (prefers-reduced-motion:no-preference){
+html:not(.js) .emblem:hover .mk{filter:drop-shadow(0 0 6px var(--acc)) drop-shadow(0 0 18px var(--acc))}
+}
+.oc{position:absolute;top:calc(100% + var(--oo));width:var(--os);height:var(--os);color:var(--ink);pointer-events:none}
+.oc.l{left:var(--oo)}
+.oc.r{right:var(--oo);transform:scaleX(-1)}
+/* the script slides an ornament's drawing a little toward the pointer: it may pass its own box, over the frame's lines */
+.oc,.ac{overflow:visible}
+/* the corner marks: the mark's rings in the ink, never mirrored, the outer ring turned by the scroll (--sa, site.js) */
+.cm{fill:var(--ink)}
+.oc.r.cm,.ac.tr.cm,.ac.bl.cm,.ac.br.cm{transform:none}
+.cm .cmo{transform:rotate(var(--sa,0deg));transform-box:view-box;transform-origin:0 0}
+@media (prefers-reduced-motion:reduce){.cm .cmo{transform:none}}
+/* the corner trapezoids: filled in the ink; the other three corners are mirror images */
+.ct path{fill:var(--ink)}
+
+
+/* ---------- the frame. Its top edge is in the header ---------- */
+.page{padding:calc(var(--tp) + var(--mk)/2) 40px 64px}
+.frame{position:relative;max-width:1040px;margin:0 auto}
+.qb{left:-8px;bottom:-7px;width:calc(100% + 13px);height:14px}
+.ql{left:-7px;top:0;width:14px;height:calc(100% + 6px)}
+.qr{right:-7px;top:0;width:14px;height:calc(100% + 9px)}
+.ac{position:absolute;width:30px;height:30px;color:var(--ink);pointer-events:none}
+.ac.tl,.ac.tr{display:none}
+.ac.bl{left:5px;bottom:5px;transform:scaleY(-1)}
+.ac.br{right:5px;bottom:5px;transform:scale(-1,-1)}
+.inner{padding:calc(var(--mk)/2 + 39px) 60px 76px}
+
+/* ---------- front page head ---------- */
+.fh{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;padding:0 0 44px}
+.fh p{margin:0;max-width:46em;font-size:19px;line-height:1.5}
+/* each sentence of the definition is a line of its own where it fits, and is balanced by itself where it breaks */
+.fh .ds{display:block;text-wrap:balance}
+/* under the definition: where to go next, a row of links in the labels' face */
+.steps{list-style:none;margin:-2px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 30px;font-size:13.5px;line-height:1.6}
+/* Before each step, a small sign in the mark's colours (from the accent to the ink): the mark's outer ring around
+   a sign of its own (the build writes the pictures, see step_glyphs). Under the pointer the ring makes a quarter
+   turn forward (site.js sets --gt). */
+.steps a.g{position:relative;padding-left:25px}
+.steps a.g::before,.steps a.g::after{content:"";position:absolute;left:0;top:50%;width:18px;height:18px;margin-top:-9px;
+  background:linear-gradient(90deg,var(--acc),var(--ink));
+  -webkit-mask:var(--g) center/contain no-repeat;mask:var(--g) center/contain no-repeat}
+.steps a.g::before{transform:rotate(var(--gt,0deg));transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.steps a.g::before{transform:none;transition:none}}
+/* where the four do not fit in a row, they stand two by two, and on a phone one under the other, with their signs
+   in line (a wrapped row left one step alone on its line, and the signs out of line) */
+@media (max-width:960px){.steps{display:grid;grid-template-columns:auto auto;justify-content:center;gap:6px 30px;text-align:left}}
+@media (max-width:480px){.steps{grid-template-columns:auto}}
+/* the name where the definition opens with it: in the dress it wears in the header (semibold, letterspaced, from
+   the accent to the ink, lit under the pointer or by a phone's tilt), a little smaller than the words around it,
+   as capitals in running text are set */
+.wm{font-size:.9em;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--acc);white-space:nowrap}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+.wm{background:
+    radial-gradient(circle 30px at var(--nx,50%) 50%,rgba(255,255,255,var(--nl,0)),rgba(255,255,255,0)),
+    linear-gradient(var(--na,90deg),rgba(0,0,0,0) 12%,rgba(0,0,0,var(--ns,0))),
+    linear-gradient(90deg,var(--acc),var(--ink));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+}
+@media (forced-colors:active){.wm{background:none;-webkit-text-fill-color:currentColor}}
+/* on a phone the name, written out, is wider than the line: there it breaks between its words */
+@media (max-width:440px){.wm{white-space:normal}}
+
+/* ---------- page head on inner pages ---------- */
+.ph{padding:0}
+/* the path to a page that lies deeper than the header's links reach: small, above the title, without underlines
+   at rest (as the header's links) */
+.crumbs{margin:0 0 12px;font-size:12.5px;line-height:1.5}
+.crumbs ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap}
+.crumbs li:not(:last-child)::after{content:"/";margin:0 .7em;color:color-mix(in srgb,currentColor 55%,transparent)}
+.crumbs a{text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:transparent}
+.crumbs a:hover{text-decoration-color:currentColor}
+.idrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px}
+.pid{flex:0 0 44px;font-size:15px;font-weight:600}
+.ph h1{flex:1 1 320px;margin:0;font-size:42px;line-height:1.15;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+.ph h1.long{font-size:30px;line-height:1.25}
+.ph h1{overflow-wrap:break-word;hyphens:auto}
+.ph.plain{position:relative;padding-bottom:28px}
+.sqs{flex:0 0 auto;display:flex;gap:6px}
+.sqs .sq{position:relative}
+.counter{position:relative;margin:30px 0 0;padding:17px 0 16px;font-size:13.5px;line-height:1.6;text-wrap:balance}
+.counter.c{margin:0;text-align:center}
+.draft{margin:18px 0 0;font-size:13px;line-height:1.6}
+.draft b{font-weight:600}
+
+/* ---------- the rules between sections ----------
+   Each is a quill stroke of its own, drawn by build.py like the frame's lines, never two alike. The stroke's box is
+   14 px high with the line along its middle: placed 6 px outside its element, it lies where a 2 px border would. */
+.qh{position:absolute;left:-2px;width:calc(100% + 4px);height:14px;overflow:visible;pointer-events:none}
+.qh.t{top:-6px}
+.qh.b{bottom:-6px}
+.qh.lt.t{top:-6.5px}
+.qh.lt.b{bottom:-6.5px}
+/* the faint rule under a row of a list or a table, and the rule rows of tables (a cell of no height across the table) */
+.qh.rr{opacity:.42}
+/* a faint rule parts one row from the next: the last row of a list takes none, the more so as the next section's
+   own rule often follows it (Max, 2026-11-15). Tables keep theirs, which closes the table. */
+.row:last-child>.qh.rr,.refs2>li:last-child>.qh.rr,.pps>li:last-child>.qh.rr,.links.cat>li:last-child>.qh.rr{display:none}
+.rl > *{position:relative;height:0;padding:0!important;border:0!important;line-height:0;font-size:0}
+.rl .qh{top:-7px;bottom:auto}
+.lst{position:relative;margin-top:28px;padding-top:1px}
+.lst.bare{margin-top:-6px}
+
+/* ---------- sections and rows ---------- */
+.sec{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 24px;padding-top:16px;margin:72px 0 0}
+.sec h2{margin:0;font-size:23px;line-height:1.25;font-weight:600;letter-spacing:-.005em}
+.sec h2 a{text-decoration-color:transparent}
+.sec h2 a:hover{text-decoration-color:currentColor;text-decoration-thickness:1px}
+.sec.sub{padding-top:13px;margin-top:44px}
+/* The heading of the part being read holds under the frame's top line until its part has scrolled by (Max,
+   2026-11-15): "A case in point" stays while the case is read, and the next heading takes its place. site.js
+   gives .holds to the headings that hold (those of one or two lines: a longer one would take too much of a small
+   window), then .holding to those that are in place, and .covered to one that a heading of a part inside it has covered
+   (the innermost heading is the one shown). A heading that holds has the paper's ground for the whole width of
+   its line and a little past it, and under it the ground fades out over a line's height, so that the text which
+   scrolls away under it does not run into its words. Its own rule lies behind the header then: the top line of
+   the frame is its rule. */
+.js .sec.holds,.js .ch3.holds{position:sticky;z-index:4;background:var(--paper)}
+.js .sec.holds{top:calc(var(--h) - 6px)}
+.js .sec.sub.holds{top:calc(var(--h) - 3px)}
+.js .holds::before{content:"";position:absolute;z-index:-1;left:-8px;right:-8px;top:0;bottom:0;background:var(--paper)}
+.js .holds.holding::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:28px;pointer-events:none;
+  background:linear-gradient(var(--paper) 8px,transparent)}   /* a line's height: a line of text fades, it is not cut */
+.js .holds.covered{opacity:0;pointer-events:none}
+/* shown again only while a link in it has the keyboard's focus (not while the part a link led to holds the focus) */
+.js .holds.covered:has(a:focus-visible){opacity:1;pointer-events:auto}
+/* the part a link led to takes the focus without the browser's ring, which ran through a figure's first letters */
+.js [tabindex="-1"]:focus{outline:none}
+.sec h3{margin:0;font-size:19px;line-height:1.3;font-weight:600}
+.sec p{margin:0;font-size:13px;line-height:1.5}
+.row{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;padding:16px 0}
+.row:last-child{padding-bottom:2px}
+.id{flex:0 0 44px;font-size:13px;font-weight:600;line-height:1.9}
+.main{flex:1 1 380px;min-width:0}
+.main .t{font-size:18px;line-height:1.4}
+.main p{margin:4px 0 0;font-size:15.5px;line-height:1.5;max-width:64ch;text-wrap:pretty}
+.meta{flex:0 0 auto;font-size:12.5px;line-height:1.9;white-space:nowrap}
+.links{margin:10px 0 0;padding:0;list-style:none}
+.links li{padding:7px 0;font-size:16px;line-height:1.45}
+.links.inline{display:flex;flex-wrap:wrap;gap:0 30px}
+.links a[aria-current]{font-weight:600;text-decoration-thickness:2px}
+.note{margin:6px 0 0;font-size:13px;line-height:1.6}
+
+/* ---------- evidence: squares, brackets, table ---------- */
+.sq{position:absolute;left:0;top:.33em;width:11px;height:11px;box-sizing:border-box;border:1.5px solid;display:block}
+a.sq{text-decoration:none}
+/* a larger target than the 11 px square: 25 px, measured from inside the 1.5 px border; in the row of four at the
+   head of an entry page the targets meet halfway between the squares */
+a.sq::after{content:"";position:absolute;inset:-8.5px}
+.sqs a.sq::after{inset:-8.5px -4.5px}
+.sq.on{background:var(--acc);border-color:var(--acc)}
+.legend{margin:14px 0 0;font-size:13px;line-height:1.6;display:flex;flex-wrap:wrap;gap:2px 28px}
+.lk{position:relative;padding-left:20px}
+.legend.stripkey{display:none}
+.draft,.note{max-width:86ch}
+.bk{position:relative;margin-top:18px;padding:14px 0 10px}
+/* the brackets are the mark's: at 36 px an arm has the length, the corner triangle the size and the line the weight
+   of the brackets around the large mark. The line's middle is 0.7 px inside the box's edge. */
+.k{position:absolute;width:36px;height:36px;overflow:visible;color:var(--ink);pointer-events:none}
+.k .karm{fill:none;stroke:currentColor;stroke-width:1.4px;vector-effect:non-scaling-stroke;stroke-linecap:square}
+.k .ktip{fill:currentColor}
+.k.tl{left:-7.3px;top:.7px}
+.k.tr{right:-7.3px;top:.7px;transform:scaleX(-1)}
+.k.bl{left:-7.3px;bottom:.7px;transform:scaleY(-1)}
+.k.br{right:-7.3px;bottom:.7px;transform:scale(-1,-1)}
+.ev{width:100%;border-collapse:collapse;table-layout:fixed}
+.ev th,.ev td{box-sizing:border-box;text-align:left;vertical-align:baseline;padding:11px 16px 11px 0;border-bottom:1px solid var(--rule)}
+.ev thead th{font-weight:400;font-size:12.5px;line-height:1.45;border-bottom:1px solid;padding-bottom:9px;vertical-align:bottom}
+.ev thead b{font-weight:600;margin-right:6px}
+.ev tbody th{font-weight:600;font-size:15px;line-height:1.45}
+.ev tbody th a{overflow-wrap:anywhere;hyphens:none}
+.ev .eid{width:64px;padding-right:0;font-size:13px;font-weight:600}
+.ev .op{width:22%}
+.ev .f1{width:17%}
+.ev .f2{width:20%}
+.ev .f3{width:20%}
+.ev .strip,.ev .fn{display:none}
+.sl{display:block;padding:6px}
+.sl .sq{position:static;width:13px;height:13px}
+.ev th:last-child,.ev td:last-child{padding-right:0}
+.ev tbody tr:last-child th,.ev tbody tr:last-child td{border-bottom:0}
+.c{position:relative;padding-left:20px;font-size:12.5px;line-height:1.5;overflow-wrap:break-word}
+
+/* ---------- entry pages ---------- */
+.rec{margin:18px 0 0;display:grid;grid-template-columns:64px minmax(0,1fr);gap:3px 0;font-size:13.5px;line-height:1.55}
+.rec dt{font-weight:600}
+.rec dd{margin:0;overflow-wrap:break-word}
+.lh{margin:52px 0 16px;font-size:17px;line-height:1.3;font-weight:600}
+.ph + .body .lh{margin-top:34px}
+.lh span{display:block;font-weight:400}
+.body p{margin:0 0 12px 64px;font-size:16.5px;line-height:1.6;max-width:66ch;text-wrap:pretty}
+.ebk{position:relative;padding:6px 0}
+.f{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.f:last-child{border-bottom:0}
+.f .n{flex:0 0 44px;font-size:20px;line-height:1.2;font-weight:600}
+.f .b{flex:1 1 420px;min-width:0}
+.f h3{margin:0;font-size:16.5px;line-height:1.4;font-weight:600}
+.f p{margin:6px 0 0;font-size:16px;line-height:1.55;max-width:66ch;text-wrap:pretty}
+.f p.fm{font-size:13.5px;line-height:1.6;overflow-wrap:break-word}
+.f p.sc{margin-top:8px;font-size:13.5px;line-height:1.6;max-width:none;overflow-wrap:break-word}
+.st{flex:0 0 auto;display:flex;align-items:center;gap:9px;font-size:12.5px;line-height:1.9;white-space:nowrap}
+.st .sq{position:relative}
+.refs{margin:0;padding:0;list-style:none}
+.refs li{display:flex;gap:0 20px;padding:5px 0;font-size:16px;line-height:1.5}
+.refs li > span.m:first-child{flex:0 0 44px;font-size:13px;font-weight:600;line-height:1.9}
+
+/* ---------- prose pages ---------- */
+.prose .sec{margin-top:52px}
+.prose .sec.first{margin-top:6px}
+.prose > .sec:first-child,.prose > .part:first-child > .sec:first-child{margin-top:36px}
+.prose p{margin:14px 0 0;font-size:16.5px;line-height:1.6;max-width:68ch;text-wrap:pretty}
+.prose h3{margin:26px 0 0;font-size:16.5px;line-height:1.4;font-weight:600}
+.prose ul,.prose ol{margin:12px 0 0;padding-left:22px;font-size:16.5px;line-height:1.6;max-width:68ch}
+.prose li{padding:3px 0}
+.prose .tw{margin-top:16px}
+.prose table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.5}
+.prose th{text-align:left;vertical-align:bottom;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;font-weight:600;padding:8px 16px 8px 0}
+.prose td{vertical-align:top;padding:9px 16px 9px 0}
+.prose th:last-child,.prose td:last-child{padding-right:0}
+.prose th.r,.prose td.r{text-align:right;font-variant-numeric:tabular-nums}
+
+
+/* ---------- front page: the elaboration under the name, the figures band, the connecting text ---------- */
+.lede{max-width:62ch;margin:-8px auto 0}
+.lede p{margin:0 0 12px;font-size:17px;line-height:1.6;text-wrap:pretty}
+.stats .sec{margin-top:56px}
+/* The figures are tiles: each is a link to where the figure is explained, in a box with round corners that the
+   quill has drawn (Max, 2026-11-15). The box is a picture laid over the tile's edge and cut in nine: the corners
+   keep their shape and the straight parts stretch along their length. The build writes one picture for each place
+   in the row, drawn in the light page's ink, and the dark page turns it over. A tile's label is underlined under
+   the pointer. */
+.tiles{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 20px}
+.tiles li{display:flex}
+.stat{position:relative;flex:1;display:flex;flex-direction:column;gap:4px;padding:17px 18px 16px;text-decoration:none}
+.stat::before{content:"";position:absolute;inset:0;pointer-events:none;border:22px solid transparent;
+  border-image-slice:22;border-image-width:22px;border-image-repeat:stretch}
+.stat .tnum{font-size:32px;line-height:1.1;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums lining-nums}
+/* The figures wear the name's colours and answer as it does (Max, 2026-11-15): each runs from the accent to the
+   ink across its own digits (so the figure is as wide as its digits, not as its tile), and a light follows the
+   pointer across it while the pointer is anywhere on its tile (site.js, nameLight). The room under the digits
+   keeps a comma's tail inside the painted box. */
+.stat .tnum{align-self:flex-start;padding-bottom:.08em;margin-bottom:-.08em;color:var(--acc)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+.stat .tnum{background:
+    radial-gradient(circle 46px at var(--nx,50%) 50%,rgba(255,255,255,var(--nl,0)),rgba(255,255,255,0)),
+    linear-gradient(var(--na,90deg),rgba(0,0,0,0) 12%,rgba(0,0,0,var(--ns,0))),
+    linear-gradient(90deg,var(--acc),var(--ink));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+}
+@media (forced-colors:active){.stat .tnum{background:none;-webkit-text-fill-color:currentColor}}
+.stat .tlab{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.45;
+  text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:transparent;text-underline-offset:.2em;
+  transition:text-decoration-color .26s ease-out}
+.stat:hover .tlab{text-decoration-color:currentColor;transition-duration:.14s}
+@media (prefers-reduced-motion:reduce){.stat .tlab{transition:none}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stat::before{filter:invert(1)}}
+:root[data-theme="dark"] .stat::before{filter:invert(1)}
+.stats .note{margin-top:18px}
+.prose.lead{margin-bottom:8px}
+.prose.lead p:first-child{margin-top:16px}
+
+/* ---------- the tasks of a reuse analysis (prototype) ---------- */
+.pps,.tks{margin:0;padding:0;list-style:none}
+.pp{position:relative;padding:14px 0 6px}
+.pp .rt{margin:0;font-size:16px;line-height:1.45}
+.pp .rw{margin:2px 0 0;font-size:12.5px;line-height:1.5}
+.tk{margin:12px 0 0 24px}
+.tk p{margin:0}
+.tl{font-size:12.5px;font-weight:600;line-height:1.6}
+.ts{font-size:15.5px;line-height:1.5;max-width:68ch;text-wrap:pretty;overflow-wrap:anywhere}
+.tm{font-size:12.5px;line-height:1.6;margin-top:3px!important;overflow-wrap:anywhere}
+.tk .data{margin-top:4px}
+pre.lean{margin:6px 0 0;padding:8px 10px;overflow-x:auto;font-size:12.5px;line-height:1.5;background:color-mix(in srgb,currentColor 5%,transparent)}
+pre.lean code{font-size:inherit}
+/* the catalogue: a source as a heading, its chapters under it, entries as on the task list */
+.sec .bk2{font-size:17px;line-height:1.4}
+.ch3{margin:22px 0 0;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;font-weight:600}
+.ch3 + .tks .tk:first-child{margin-top:6px}
+.ch3 .up{margin-left:14px;font-weight:400;font-size:12px;white-space:nowrap}
+/* a chapter's heading that holds (see .holds above): part of the room over it becomes its own, so that its ground
+   reaches up to the top line */
+.js .ch3.holds{top:calc(var(--h) - 2px);margin-top:10px;padding-top:12px}
+.grp{margin:16px 0 0 24px;font-size:12px;line-height:1.6;font-weight:400;letter-spacing:.02em;color:color-mix(in srgb,currentColor 74%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:2px 16px;flex-basis:100%}
+.chip{background:none;border:0;margin:0;padding:4px 0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
+.chip[aria-pressed="true"]{font-weight:600;text-decoration-thickness:2px}
+.links.cat{margin:0}
+.links.cat li{position:relative;padding:12px 0}
+.ts code{font-size:.84em}
+
+/* ---------- related work: the two figures and the reading list ---------- */
+.onpage{margin:22px 0 0;font-size:13px;line-height:1.6}
+.onpage p{margin:0;font-weight:600}
+.onpage ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:0 26px}
+.onpage li{padding:3px 0}
+/* ---------- the sidebar of a long list ----------
+   A long list (a topic of the catalogue, the tasks of record R2) and a page of several parts (Related work from
+   under its title, the front page from "A case in point") have their index at the side on a wide window: to the
+   right of the text, which is narrower beside it, in view while the page scrolls, with the part one is reading
+   marked. It follows the header's links: no underline at rest, one under the pointer. On a narrower
+   window the index in the page's flow serves alone, as it does on paper. */
+.side{display:none}
+@media (min-width:1040px){
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 196px;column-gap:44px;align-items:start}
+.cols>.colm{grid-column:1;grid-row:1}
+.cols>.side{grid-column:2;grid-row:1}
+/* its height leaves the room that lies under the list at the foot of a page (the frame's and the page's own, 140px),
+   so that the end of the list never pushes it up under the header. A scroll inside it stays inside it. */
+.cols>.side{display:block;position:sticky;top:84px;max-height:calc(100vh - 236px);overflow-y:auto;overscroll-behavior:contain;margin-top:26px;
+  font-size:12.5px;line-height:1.5}
+.cols.hd>.side{margin-top:88px}
+.cols .colm>.onpage,.cols .colm>.topics,.cols .ch3 .up{display:none}
+/* The sidebar comes in quickly once the reader begins to scroll and its place beside the text has come up into
+   the window, and it goes again at the top of the page (Max, 2026-11-15: "it should appear as we start scrolling,
+   not just on load, but pretty quick"; on the front page "when we get to A case in point"). site.js sets .on. The
+   index in the page's flow is left to narrower windows. Without the script the sidebar is simply there. */
+.js .cols>.side{opacity:0;pointer-events:none;transition:opacity .2s ease-out}
+.js .cols>.side.on,.js .cols>.side:focus-within{opacity:1;pointer-events:auto}
+/* (transparent, not hidden, while it is out: a keyboard reaches it first, and it shows as soon as it has the focus) */
+/* beside a sidebar the column is narrower: the four tiles stand two by two and the two charts one under the other,
+   as they do in a narrower window */
+.cols .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cols .panels.two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.js .cols>.side,.js .cols>.side.on{transition:none}}
+/* Its heading is a small label in capitals. Each entry has a small ring before it, in the mark's colours (from
+   the accent to the ink, as the name): the part being read has its ring filled and its words in semibold (Max,
+   2026-11-15). Where the sidebar is longer than the window, it scrolls by a thin bar in the page's ink. */
+.side{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ink) 28%,transparent) transparent}
+.side p{margin:0 0 10px;font-size:11px;line-height:1.5;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.side ul{margin:0;padding:0;list-style:none}
+.side li{padding:3.5px 0}
+/* the parts of a part (the topics of the reading list) stand under it, set in */
+.side ul ul{margin:3.5px 0 -3.5px 14px}
+.side a{position:relative;display:block;padding-left:18px;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:transparent}
+.side a::before{content:"";position:absolute;left:1px;top:.42em;width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(90deg,var(--acc),var(--ink));opacity:.7;
+  -webkit-mask:radial-gradient(circle,transparent 0 2.1px,#000 2.6px);mask:radial-gradient(circle,transparent 0 2.1px,#000 2.6px);
+  transition:opacity .2s ease-out}
+.side a:hover{text-decoration-color:currentColor}
+.side a:focus-visible{outline-offset:-2px}   /* inside the sidebar's own scroll, which would cut a ring outside the link */
+/* a sidebar longer than its room fades at its foot while there is more below (site.js sets .over) */
+.side.over{-webkit-mask-image:linear-gradient(#000 calc(100% - 28px),transparent);mask-image:linear-gradient(#000 calc(100% - 28px),transparent)}
+/* and at its top while there is more above (a centred entry list cut its first line through the letters) */
+.side.under{-webkit-mask-image:linear-gradient(transparent,#000 28px);mask-image:linear-gradient(transparent,#000 28px)}
+.side.over.under{-webkit-mask-image:linear-gradient(transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.side a:hover::before{opacity:1}
+.side a[aria-current]{font-weight:600}
+.side a[aria-current]::before{opacity:1;-webkit-mask:none;mask:none}
+@media (prefers-reduced-motion:reduce){.side a::before{transition:none}}
+.filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:20px 0 4px;font-size:13px}
+.fbox{position:relative;display:inline-block;width:min(100%,300px)}
+.filt input{font:inherit;color:inherit;background:transparent;border:0;border-radius:0;padding:6px 2px;width:100%;box-sizing:border-box}
+.filt input:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.filt input::placeholder{color:color-mix(in srgb,currentColor 55%,transparent);opacity:1}
+.filt .openall{margin-left:auto}
+/* a Lean statement of the catalogue quoted in a page of prose: its line of links is small, as in the catalogue */
+.prose p.tm{font-size:12.5px;line-height:1.6;margin-top:6px}
+[data-item][hidden],[data-group][hidden]{display:none!important}
+.fig{margin:0}
+.fig .sec{margin-top:56px}
+.panels{display:grid;grid-template-columns:1fr;gap:28px 40px;margin-top:18px}
+.panels.two{grid-template-columns:1fr 1fr}
+.panel{min-width:0}
+.panel h3{margin:0 0 8px;font-size:13px;line-height:1.5;font-weight:600}
+.panel h3 .soft{font-weight:400}
+.take{margin:0 0 10px;font-size:15.5px;line-height:1.45;max-width:46ch}
+.lg{margin:0 0 8px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:2px 18px;font-size:12px;line-height:1.6}
+.lg li{display:flex;align-items:center;gap:7px}
+.kl{flex:0 0 18px;height:0;border-top:2px solid;opacity:.6}
+.kl.kd{border-top:1.5px dashed}
+.kb{flex:0 0 9px;height:9px;background:var(--acc)}
+.ch{display:block;width:100%;max-width:460px;height:auto;overflow:visible}
+.ch .g{stroke:currentColor;stroke-width:1;opacity:.24}
+.ch .t{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:11px;fill:currentColor;opacity:.74}
+.ch .t.e{opacity:1}
+.ch .l{fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;opacity:.6}
+.ch .l.d{stroke-width:1.5;stroke-dasharray:4 3}
+.ch .a{fill:var(--acc)}
+.ch .p{fill:currentColor;stroke:var(--paper);stroke-width:2}
+.ch .hit{fill:transparent}
+.rows{margin:0;padding:0;list-style:none;max-width:760px}
+.rows li{display:grid;grid-template-columns:minmax(150px,32%) 1fr 8ch;align-items:center;gap:2px 14px;padding:5px 0;font-size:14px;line-height:1.4}
+.rows .rv{font-size:12.5px;white-space:nowrap;text-align:right}
+.rows.mt li{grid-template-columns:minmax(150px,32%) 1fr 13ch}
+.rows li.fo .rn{font-weight:600}
+.trk{display:block;height:10px;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 46%,transparent)}
+.trk.bare{box-shadow:none}
+.trk i{display:block;height:100%}
+.trk i.a{background:var(--acc);min-width:2px}
+.trk i.bc{background:currentColor;opacity:.45;min-width:1px}
+.fig figcaption p{font-size:14.5px;line-height:1.55;max-width:80ch}
+.data{margin-top:12px}
+.data summary{cursor:pointer;font-size:13px;line-height:1.6}
+.data .mth{margin:12px 0 0;font-size:14px;line-height:1.55;max-width:80ch}
+.data h4{margin:16px 0 4px;font-size:12.5px;font-weight:600}
+.data table{border-collapse:collapse;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5}
+.data th,.data td{text-align:right;padding:2px 14px 2px 0;font-weight:400}
+.data th:first-child{text-align:left}
+.data thead th{font-weight:600;vertical-align:bottom}
+.data .tw{overflow-x:auto}
+.links.topics{margin-top:16px;gap:0 26px}
+.links.topics li{padding:4px 0;font-size:13px;line-height:1.5}
+.refs2{margin:12px 0 0;padding:0;list-style:none}
+.refs2 li{position:relative;display:flex;flex-direction:column;gap:2px;padding:10px 0}
+.refs2 .rt{font-size:16px;line-height:1.45}
+.refs2 .rw{font-size:12.5px;line-height:1.5}
+.refs2 .soft{font-size:14.5px;line-height:1.5}
+
+@media (max-width:1000px){
+/* a narrower frame: the upper ornaments start small, so they never meet the centered links */
+body{--os0:40px;--oo0:8px}
+.panels.two{grid-template-columns:1fr}
+}
+/* Below 1040px, where no sidebar narrows the column, the tiles and the two charts keep the setting they have
+   beside a sidebar (two by two; one chart under the other): a window drawn narrower does not see them go to one
+   row and back. */
+@media (max-width:1039px){
+.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+.panels.two{grid-template-columns:1fr}
+}
+/* the evidence table needs about 720 px for its six columns, which a window of 960 px gives it with room: below that, each
+   operation is one line with its four squares, and the words are on the operation's page. On paper each operation
+   is a block (see the print rules). */
+@media (max-width:960px){
+.ev,.ev tbody{display:block}
+.ev thead{display:none}
+.ev tr{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:0 10px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.ev tr:last-child{border-bottom:0}
+.ev th,.ev td{border:0;padding:0}
+.ev .eid,.ev tbody th,.ev .op{width:auto}
+.ev td[data-f]{display:none}
+.ev .eid{grid-column:1;grid-row:1}
+.ev tbody th{grid-column:2;grid-row:1}
+.ev .strip{display:flex;grid-column:3;grid-row:1}
+.ev td.has{display:block;grid-column:2/-1;padding:1px 0 2px}
+/* the strip's square is the link here: a filled cell's own square is drawn, not a second link to the same place */
+.ev td.on a.sq{display:none}
+.ev td.on .c::before{content:"";position:absolute;left:0;top:.33em;width:11px;height:11px;background:var(--acc)}
+.ev .fn{display:inline;margin-right:.3em;font-weight:600}
+.ev tbody th a{hyphens:manual}
+.legend.stripkey{display:block}
+}
+/* A narrow window or a phone: the mark still shrinks and the header still stays in view. The upper ornaments stay
+   in the page here, because there is no margin wide enough for a pinned one beside the text. */
+/* Up to 960px the name and the three links left of the mark need the header's closer setting (smaller links, set
+   nearer to each other and to the mark, as on a phone). Where they still take two rows, both fit in the header
+   (with the wider setting the upper row left the window). The setting begins where the wider one stops fitting
+   beside the mark at the top of a page: begun later, at 840px, it made the links go to two rows, back to one and
+   to two again as a window was drawn narrower. */
+@media (max-width:960px){
+.navl,.navr{bottom:3px;gap:0 12px;font-size:12px}
+.navl{left:2px;right:calc(50% + var(--m)/2 + 8px)}
+.navr{right:2px;left:calc(50% + var(--m)/2 + 8px)}
+.topin a,.topin button{padding:3px 0}   /* 24px to touch, with the line's height */
+}
+/* a citation block wraps on a narrow window instead of being cut at its right edge (the BibTeX is still copied
+   whole); Lean statements keep their lines and scroll */
+@media (max-width:600px){pre.cite{white-space:pre-wrap;overflow-wrap:anywhere}}
+@media (max-width:720px){
+body{--mk:clamp(80px,calc(41.9vw - 75.8px),170px);--mk1:40px;--tp:30px;--hd1:56px;--gk:17px;--gk1:6px}
+html.js{scroll-padding-top:110px}
+.top{padding:0 12px}
+.navl,.navr{bottom:3px;gap:0 12px;font-size:12px}
+.navl{left:2px;right:calc(50% + var(--m)/2 + 8px)}
+.navr{right:2px;left:calc(50% + var(--m)/2 + 8px)}
+.topin a,.topin button{padding:3px 0}   /* 24px to touch, with the line's height */
+.qtl{width:calc(50% + 8px - var(--gap))}
+.qtr{width:calc(50% + 7px - var(--gap))}
+.oc{display:none}
+.ac.tl,.ac.tr{display:block}
+.ac.tl{left:7px;top:7px}
+.ac.tr{right:7px;top:7px;transform:scaleX(-1)}
+.ac.bl{left:7px;bottom:7px}
+.ac{width:24px;height:24px}  /* the size of the settled mark in the header on a phone */
+.ac.br{right:7px;bottom:7px}
+.page{padding-left:12px;padding-right:12px;padding-bottom:40px}
+.inner{padding:calc(var(--mk)/2 + 24px) 18px 72px}
+.lede p{font-size:16px}
+.stat .tnum{font-size:26px}
+.stat{padding:14px 14px 13px}
+.panels.two{grid-template-columns:1fr}
+.rows li,.rows.mt li{grid-template-columns:1fr auto}
+.rows .trk{grid-column:1/-1;grid-row:2}
+.ph h1{font-size:32px}
+.ph h1.long{font-size:24px}
+.sec p{flex-basis:100%}
+.k{width:25px;height:25px}
+.body p{margin-left:0}
+/* tables in prose: one block per row, each cell under its column name */
+.prose table,.prose tbody,.prose tr,.prose td{display:block}
+.prose thead{display:none}
+.prose tr{padding:10px 0}
+.prose tr.rl{padding:0}
+.prose td{border:0;padding:2px 0}
+.prose td.r{text-align:left}
+.prose td:empty{display:none}
+.prose td::before{content:attr(data-l);display:block;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;font-weight:600}
+}
+/* The name stands in the header wherever it fits in the links' row beside the mark: site.js measures the row and
+   sets .nn on the left group where it does not fit (a narrow window, or one of middle width at the top of a page,
+   where the mark is large). It is written out where it fits and shortened (TNPG) where only the short form fits
+   (.full, set by the script; without the script the short form stands). Where it is left out, the mark is the way
+   home. Up to 560px it never fits, and the stylesheet leaves it out by itself, so that a phone does not show it
+   before the script has run. */
+.topin .home .nf{display:none}
+.navl.full .home .nf{display:inline}
+.navl.full .home .ns{display:none}
+.navl.nn .home{display:none}
+@keyframes namein{from{opacity:0}}
+.navl .home.nin{animation:namein .3s ease-out}
+@media (prefers-reduced-motion:reduce){.navl .home.nin{animation:none}}
+@media (max-width:560px){
+.topin .home{display:none}
+}
+@media (max-width:386px){
+.ev tr{grid-template-columns:30px minmax(0,1fr) auto;gap:0 8px}
+.ev tbody th{font-size:14px}
+.stat .tnum{font-size:23px}
+}
+/* On a phone the mark at the top of a page grows with the window in one line, from 80px (340px and narrower) to
+   170px (586px and wider), 88px on a window of 390px. (Two rules that met at 400px made it jump by 24px there, and
+   the header's links moved from one row to the other as a window was drawn across it.) */
+@media (max-width:360px){
+.navl,.navr{font-size:11px;gap:0 10px}
+}
+@media print{
+.sq.on,.trk,.trk i,.kb{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.panel,.row{break-inside:avoid}
+.sec{break-after:avoid}
+.ev,.ev tbody,.ev tr{display:block}
+.ev thead{display:none}
+.ev tr{padding:14px 0;border-bottom:1px solid var(--rule)}
+.ev tr:last-child{border-bottom:0}
+.ev th,.ev td{border:0;padding:0}
+.ev .eid{display:block;width:auto}
+.ev tbody th,.ev .op{display:block;width:auto}
+.ev td[data-f]{display:block;width:auto;padding:9px 0 0}
+.ev td[data-f]::before{content:attr(data-f);display:block;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;font-weight:600;padding-left:20px}
+.ev .strip,.ev .fn,.legend.stripkey{display:none}
+.ev td.on a.sq{display:block}
+.ev td.on .c::before{content:none}
+html.js body,html.js body.front{min-height:0}
+:root,:root[data-theme="dark"],:root:not([data-theme="light"]){--ink:#111111;--paper:#ffffff;--acc:#111111;--rule:rgba(17,17,17,.24);--p:0!important;--q:0!important;color-scheme:light}
+.top,.js .top{position:absolute}
+.q,.ac,.oc,.stub,.navl,.navr,.topin button,.topin .sep{display:none}
+/* on paper a rule is drawn inside its own box, so that a page break never cuts a stroke off from it */
+.qh.t,.qh.lt.t{top:0}
+.qh.b,.qh.lt.b{bottom:0}
+.sec{padding-top:22px}
+.sec.sub{padding-top:19px}
+.counter{padding:23px 0 22px}
+.ph.plain{padding-bottom:34px}
+.lst{padding-top:7px}
+/* a mark printed while hovered or focused is printed at rest */
+.emblem .mk,.emblem .mk-o,.emblem .mk-s,.emblem .mk-3{transform:none!important;filter:none!important}
+.emblem .mk-light,.emblem .mk-w,.side,.topin::after,.filt,.crumbs,.steps a.g::before,.steps a.g::after{display:none!important}
+.steps a.g{padding-left:0}
+/* on paper no heading holds */
+/* a heading stays where it stands, and keeps the place its rule is drawn from (static, the rules of all sections
+   gathered at the top of the frame and printed as one thick stroke); a folded block prints as nothing */
+.js .holds{position:relative!important;top:auto!important;background:none!important}
+details:not([open]){display:none}
+.js .holds::before,.js .holds::after{display:none!important}
+.js .holds.covered{opacity:1!important}
+.cols{display:block}
+.cols .colm>.onpage,.cols .colm>.topics{display:block}
+.stat::before{filter:none!important}
+.wm,.stat .tnum,.topin .home{background:none!important;-webkit-text-fill-color:currentColor!important}
+}
+.tiles li:nth-child(1) .stat::before{border-image-source:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100' viewBox='0 0 200 100'%3E%3Cpath fill='%23111111' d='M84,3.4L89,2.8L94.1,2.9L99.1,2.9L104.2,3L109.2,3L114.3,3.1L119.3,3.2L124.4,3.2L129.4,3.3L134.5,3.3L139.5,3.2L144.5,3.1L149.6,3.1L154.6,3.1L159.7,3.1L164.7,3.2L169.8,3.2L174.8,3.2L179.9,3.3L185,3.6L189.9,5.6L193.8,9.2L196.1,13.9L196.6,19.1L196.6,24.2L196.5,29.2L196.5,34.3L196.5,39.3L196.5,44.3L196.4,49.4L196.4,54.4L196.4,59.5L196.4,64.5L196.4,69.6L196.4,74.6L196.4,79.7L196.2,84.8L194.4,89.7L191,93.6L186.3,96L181.1,96.6L176,96.6L171,96.5L165.9,96.5L160.9,96.5L155.9,96.5L150.8,96.6L145.8,96.6L140.7,96.5L135.7,96.5L130.6,96.3L125.6,96.2L120.5,96.2L115.5,96.2L110.4,96.3L105.4,96.4L100.3,96.5L95.3,96.5L90.2,96.4L85.2,96.4L80.2,96.3L75.1,96.3L70.1,96.3L65,96.3L60,97L54.9,96.9L49.9,96.9L44.8,96.9L39.8,97L34.7,97.1L29.7,97L24.6,97L19.6,96.9L14.4,96.3L9.6,94.1L5.8,90.4L3.6,85.6L3.2,80.4L3.2,75.3L3.2,70.3L3.2,65.2L3.2,60.2L3.2,55.1L3.2,50.1L3.3,45L3.3,40L3.4,34.9L3.4,29.9L3.4,24.8L3.3,19.8L3.7,14.6L5.8,9.8L9.5,6L14.3,3.8L19.4,3.3L24.5,3.4L29.5,3.4L34.6,3.4L39.6,3.3L44.7,3.3L49.7,3.3L54.8,3.3L59.8,3.3L64.9,3.2L69.9,3.2L75,3.2L80,3.3L85.1,3.5L90.1,3.6L95.1,3.6L95.1,4L90.1,4L85.1,4L80,4L75,4L69.9,4.1L64.9,4.1L59.8,4.2L54.8,4.2L49.7,4.3L44.7,4.3L39.6,4.3L34.6,4.3L29.5,4.3L24.5,4.3L19.4,4.2L14.5,4.6L10,6.7L6.5,10.3L4.6,14.8L4.3,19.8L4.3,24.8L4.4,29.9L4.4,34.9L4.4,40L4.3,45L4.4,50.1L4.4,55.1L4.4,60.2L4.4,65.2L4.5,70.3L4.5,75.3L4.5,80.4L5,85.2L7,89.6L10.4,92.9L14.7,94.9L19.6,95.4L24.6,95.5L29.7,95.6L34.7,95.6L39.8,95.5L44.8,95.5L49.9,95.4L54.9,95.4L60,95.3L65,95.4L70.1,95.5L75.1,95.5L80.2,95.5L85.2,95.5L90.2,95.6L95.3,95.6L100.3,95.7L105.4,95.6L110.4,95.5L115.5,95.4L120.5,95.4L125.6,95.4L130.6,95.5L135.7,95.6L140.7,95.6L145.8,95.6L150.8,95.6L155.9,95.5L160.9,95.5L165.9,95.5L171,95.5L176,95.5L181.1,95.6L186,95L190.3,92.7L193.5,89.1L195.1,84.6L195.3,79.7L195.2,74.6L195.3,69.6L195.3,64.5L195.3,59.5L195.3,54.4L195.3,49.4L195.3,44.3L195.4,39.3L195.4,34.3L195.4,29.2L195.5,24.2L195.5,19.1L195.1,14.2L192.9,9.8L189.4,6.5L184.8,4.6L179.9,4.3L174.8,4.3L169.8,4.3L164.7,4.3L159.7,4.2L154.6,4.2L149.6,4.2L144.5,4.3L139.5,4.4L134.5,4.5L129.4,4.6L124.4,4.6L119.3,4.6L114.3,4.5L109.2,4.5L104.2,4.5L99.1,4.5L94.1,4.4L89,4.4L84,3.8Z'/%3E%3C/svg%3E")}
+.tiles li:nth-child(2) .stat::before{border-image-source:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100' viewBox='0 0 200 100'%3E%3Cpath fill='%23111111' d='M107.5,3.8L112.6,3.2L117.7,3.3L122.8,3.4L127.9,3.4L132.9,3.4L138,3.4L143.1,3.4L148.2,3.4L153.3,3.4L158.4,3.3L163.4,3.2L168.5,3.1L173.6,3.1L178.7,3L183.9,3.2L189,4.8L193.3,8.1L196.1,12.8L197,18.1L196.9,23.2L196.9,28.3L196.9,33.3L196.9,38.4L196.9,43.5L196.9,48.6L196.9,53.7L196.9,58.8L197,63.8L197,68.9L197,74L197,79.1L196.9,84.3L195,89.4L191.6,93.6L186.8,96.2L181.5,96.9L176.4,96.9L171.3,96.8L166.3,96.8L161.2,96.8L156.1,96.8L151,96.8L145.9,96.8L140.9,96.8L135.8,96.8L130.7,96.8L125.6,96.8L120.5,96.7L115.4,96.7L110.4,97.6L105.3,97.3L100.2,97.2L95.1,97.2L90,97.2L85,97.3L79.9,97.3L74.8,97.3L69.7,97.3L64.6,97.2L59.5,97.1L54.5,97.1L49.4,97.1L44.3,97.1L39.2,97.2L34.1,97.2L29.1,97.2L24,97.1L18.9,97.1L13.6,96.4L8.8,93.9L5.2,89.8L3.3,84.7L3,79.5L3.1,74.4L3.1,69.3L3.1,64.2L3.2,59.2L3.2,54.1L3.2,49L3.2,43.9L3.2,38.8L3.2,33.7L3.3,28.7L3.3,23.6L3.2,18.5L4,13.2L6.6,8.6L10.7,5.2L15.7,3.5L20.9,3.4L26,3.5L31.1,3.5L36.2,3.5L41.2,3.4L46.3,3.4L51.4,3.4L56.5,3.4L61.6,3.3L66.7,3.3L71.7,3.3L76.8,3.3L81.9,3.4L87,3.4L92.1,3.4L97.1,3.5L102.2,3.6L107.3,3.6L112.4,3.5L117.5,3.5L117.5,3.9L112.4,3.9L107.3,4.1L102.2,4.2L97.1,4.4L92.1,4.4L87,4.4L81.9,4.3L76.8,4.3L71.7,4.3L66.7,4.3L61.6,4.3L56.5,4.3L51.4,4.3L46.3,4.3L41.2,4.4L36.2,4.4L31.1,4.5L26,4.5L20.9,4.4L15.9,4.5L11.2,6.1L7.4,9.2L5,13.6L4.3,18.5L4.4,23.6L4.4,28.7L4.4,33.7L4.4,38.8L4.5,43.9L4.5,49L4.5,54.1L4.5,59.2L4.5,64.2L4.5,69.3L4.5,74.4L4.5,79.5L4.7,84.5L6.4,89.1L9.6,92.7L14,95L18.9,95.6L24,95.7L29.1,95.7L34.1,95.7L39.2,95.7L44.3,95.7L49.4,95.6L54.5,95.6L59.5,95.7L64.6,95.7L69.7,95.8L74.8,95.8L79.9,95.9L85,95.8L90,95.7L95.1,95.7L100.2,95.7L105.3,95.7L110.4,95.5L115.4,95.8L120.5,95.9L125.6,95.9L130.7,95.9L135.8,95.9L140.9,96L145.9,96L151,96L156.1,96L161.2,96L166.3,96L171.3,96L176.4,96.1L181.5,96.1L186.6,95.4L191,92.9L194.3,89L196,84.2L196.1,79.1L196.1,74L196,68.9L195.9,63.8L195.8,58.8L195.8,53.7L195.7,48.6L195.7,43.5L195.7,38.4L195.7,33.3L195.6,28.3L195.6,23.2L195.7,18.1L194.8,13.2L192.3,9L188.4,6L183.7,4.5L178.7,4.4L173.6,4.4L168.5,4.5L163.4,4.6L158.4,4.7L153.3,4.8L148.2,4.8L143.1,4.8L138,4.9L132.9,4.9L127.9,4.9L122.8,4.9L117.7,4.8L112.6,4.8L107.5,4.2Z'/%3E%3C/svg%3E")}
+.tiles li:nth-child(3) .stat::before{border-image-source:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100' viewBox='0 0 200 100'%3E%3Cpath fill='%23111111' d='M51.2,4.4L56.3,3.7L61.4,3.7L66.4,3.7L71.5,3.6L76.6,3.6L81.6,3.7L86.7,3.7L91.7,3.7L96.8,3.7L101.9,3.8L106.9,3.8L112,3.8L117.1,3.8L122.1,3.8L127.2,3.8L132.3,3.8L137.3,3.8L142.4,3.8L147.5,3.8L152.5,3.9L157.6,4L162.6,4L167.7,4.1L172.8,4.1L177.8,4.1L182.9,4.1L187.7,5.3L191.9,8.1L194.9,12.2L196.1,17.2L196.2,22.2L196.2,27.3L196.2,32.4L196.2,37.4L196.2,42.5L196.1,47.6L196,52.6L195.9,57.7L195.8,62.7L195.8,67.8L195.9,72.9L196,77.9L196.1,83L194.8,87.9L191.8,92L187.6,94.8L182.7,95.9L177.7,95.9L172.6,95.9L167.5,96L162.5,96.1L157.4,96.2L152.4,96.2L147.3,96.1L142.2,96.1L137.2,96.1L132.1,96.1L127,96.1L122,96.1L116.9,96L111.8,96L106.8,96.1L101.7,96.1L96.6,96.2L91.6,96.2L86.5,96.2L81.5,96.2L76.4,96.2L71.3,96.2L66.3,96.2L61.2,96.2L56.1,96.2L51.1,96.2L46,96.1L40.9,96.2L35.9,96.2L30.8,96.3L25.8,96.4L20.7,96.4L15.6,96.2L10.7,94.4L6.8,91L4.3,86.5L3.6,81.4L3.6,76.3L3.7,71.2L3.7,66.2L3.7,61.1L3.5,56L3.4,51L3.3,45.9L3.3,40.8L3.3,35.8L3.4,30.7L3.4,25.7L3.4,20.6L3.6,15.4L5.4,10.5L8.8,6.4L13.5,3.9L18.7,3.2L23.8,3.2L28.9,3.3L33.9,3.3L39,3.4L44.1,3.5L49.1,3.5L54.2,3.5L59.2,3.6L59.2,4L54.2,3.9L49.1,3.9L44.1,4L39,4L33.9,4.1L28.9,4.1L23.8,4L18.7,4L13.8,4.7L9.4,7.1L6.2,11L4.6,15.6L4.5,20.6L4.5,25.7L4.4,30.7L4.4,35.8L4.3,40.8L4.4,45.9L4.5,51L4.7,56L4.8,61.1L4.8,66.2L4.8,71.2L4.8,76.3L4.7,81.4L5.3,86.1L7.6,90.3L11.3,93.4L15.8,95.1L20.7,95.3L25.8,95.2L30.8,95.2L35.9,95.1L40.9,95L46,95L51.1,95L56.1,95L61.2,95L66.3,95L71.3,95L76.4,95.1L81.5,95.1L86.5,95.1L91.6,95.1L96.6,95L101.7,95L106.8,94.9L111.8,94.9L116.9,94.9L122,94.9L127,94.9L132.1,94.9L137.2,94.9L142.2,95L147.3,95L152.4,95L157.4,95L162.5,94.9L167.5,94.8L172.6,94.7L177.7,94.6L182.7,94.6L187.1,93.6L190.9,91.1L193.6,87.4L194.7,82.9L194.6,77.9L194.5,72.9L194.4,67.8L194.4,62.7L194.4,57.7L194.5,52.6L194.6,47.6L194.7,42.5L194.7,37.4L194.7,32.4L194.7,27.3L194.6,22.2L194.6,17.2L193.5,12.9L190.8,9.2L187.1,6.7L182.8,5.7L177.8,5.6L172.8,5.6L167.7,5.6L162.6,5.6L157.6,5.6L152.5,5.5L147.5,5.4L142.4,5.4L137.3,5.3L132.3,5.4L127.2,5.4L122.1,5.4L117.1,5.4L112,5.4L106.9,5.4L101.9,5.4L96.8,5.3L91.7,5.3L86.7,5.3L81.6,5.2L76.6,5.2L71.5,5.2L66.4,5.3L61.4,5.3L56.3,5.5L51.2,4.8Z'/%3E%3C/svg%3E")}
+.tiles li:nth-child(4) .stat::before{border-image-source:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100' viewBox='0 0 200 100'%3E%3Cpath fill='%23111111' d='M115.5,4.3L120.6,3.8L125.7,3.8L130.7,3.7L135.8,3.7L140.9,3.7L145.9,3.7L151,3.7L156.1,3.7L161.1,3.6L166.2,3.6L171.2,3.7L176.3,3.7L181.4,3.6L186.5,4.3L191.1,6.7L194.6,10.6L196.5,15.5L196.7,20.7L196.8,25.8L196.8,30.8L196.8,35.9L196.8,41L197.1,46L197,51.1L197,56.2L197.1,61.2L197.1,66.3L197.1,71.4L197.1,76.4L197.1,81.5L196.3,86.8L193.6,91.6L189.5,95L184.4,96.8L179.2,97L174.1,97L169,97L164,96.9L158.9,96.9L153.8,96.9L148.8,97L143.7,97.1L138.6,97.1L133.6,97.1L128.5,97.1L123.5,97L118.4,96.9L113.3,96.8L108.3,96.8L103.2,96.8L98.1,96.7L93.1,96.7L88,96.6L82.9,96.6L77.9,96.6L72.8,96.5L67.7,96.5L62.7,96.4L57.6,96.4L52.5,96.3L47.5,96.2L42.4,96.2L37.3,96.2L32.3,96.3L27.2,96.3L22.1,96.3L17.1,96.2L12.1,95L7.9,92L5,87.8L3.9,82.8L3.9,77.7L3.9,72.7L4,67.6L3.9,62.5L3.9,57.5L3.9,52.4L3.9,47.4L3.9,42.3L3.9,37.2L3.9,32.2L3.9,27.1L3.9,22L4,17L5.2,12.1L8.1,7.9L12.4,5.1L17.3,3.9L22.4,3.9L27.4,3.8L32.5,3.8L37.6,3.8L42.6,3.9L47.7,3.9L52.8,3.9L57.8,3.9L62.9,3.9L68,3.9L73,3.9L78.1,3.9L83.2,3.9L88.2,4L93.3,4L98.4,4.1L103.4,4.2L108.5,4.2L113.5,4.2L118.6,4.2L123.7,4.2L123.7,4.6L118.6,4.6L113.5,4.8L108.5,5L103.4,5.1L98.4,5.2L93.3,5.1L88.2,5L83.2,5L78.1,4.9L73,5L68,5L62.9,5L57.8,5L52.8,5L47.7,5L42.6,4.9L37.6,4.9L32.5,4.9L27.4,4.9L22.4,4.9L17.4,5L12.8,6L8.9,8.7L6.2,12.5L5.1,17L5,22L5,27.1L5,32.2L5,37.2L5,42.3L5,47.4L5,52.4L5,57.5L5,62.5L5,67.6L5,72.7L5,77.7L5,82.8L6,87.3L8.7,91.2L12.6,93.9L17.1,95.1L22.1,95.1L27.2,95.1L32.3,95.1L37.3,95L42.4,94.9L47.5,94.9L52.5,94.9L57.6,95L62.7,95L67.7,95.1L72.8,95.1L77.9,95.1L82.9,95.2L88,95.2L93.1,95.2L98.1,95.3L103.2,95.4L108.3,95.4L113.3,95.5L118.4,95.5L123.5,95.6L128.5,95.8L133.6,95.8L138.6,95.9L143.7,95.8L148.8,95.8L153.8,95.7L158.9,95.7L164,95.8L169,95.8L174.1,95.8L179.2,95.8L184.2,95.6L188.9,94L192.6,90.7L195,86.4L195.7,81.5L195.7,76.4L195.6,71.4L195.6,66.3L195.5,61.2L195.5,56.2L195.3,51.1L195.1,46L195.8,41L195.7,35.9L195.7,30.8L195.6,25.8L195.5,20.7L195.3,15.7L193.5,11.2L190.3,7.7L186.1,5.5L181.4,4.9L176.3,4.9L171.2,4.9L166.2,4.9L161.1,4.9L156.1,4.9L151,4.9L145.9,4.9L140.9,4.9L135.8,4.9L130.7,4.9L125.7,5L120.6,5.1L115.5,4.7Z'/%3E%3C/svg%3E")}
+.steps a.g::before{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.03,7.73A9.1,9.1 0 1 1 16.27,3.97' fill='none' stroke='%23000' stroke-width='2.3'/%3E%3C/svg%3E")}
+.steps a.g-paper::after{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.9,10.1H16.1M7.9,13.9H13.4' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E")}
+.steps a.g-catalogue::after{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.3,8.3h2.9v2.9h-2.9zM12.8,8.3h2.9v2.9h-2.9zM8.3,12.8h2.9v2.9h-2.9zM12.8,12.8h2.9v2.9h-2.9z'/%3E%3C/svg%3E")}
+.steps a.g-record::after{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.9,12.3L10.8,15.2L16.2,9.1' fill='none' stroke='%23000' stroke-width='2.1'/%3E%3C/svg%3E")}
+.steps a.g-code::after{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10.5,8.5L7.3,12L10.5,15.5M13.5,8.5L16.7,12L13.5,15.5' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E")}
+.topin .theme[data-to="light"]::before{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4.3'/%3E%3Cpath d='M12,1.6V4.9M12,19.1V22.4M1.6,12H4.9M19.1,12H22.4M4.65,4.65L6.98,6.98M17.02,17.02L19.35,19.35M4.65,19.35L6.98,17.02M17.02,6.98L19.35,4.65' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E")}
+.topin .theme[data-to="dark"]::before{--g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.6,13.4A8.8,8.8 0 1 1 10.6,3.4A7.1,7.1 0 0 0 20.6,13.4z'/%3E%3C/svg%3E")}
