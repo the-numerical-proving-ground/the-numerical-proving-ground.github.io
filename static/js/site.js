@@ -638,15 +638,15 @@
      on the mark has the say while it is there. None with reduced motion.
      Every other item that answers a pointer answers the tilt as well: the small ring signs before the next steps
      and the theme switch turn with it (the stylesheet reads --tt), as they turn under a pointer.
-     Safari on an iPhone reports the tilt only after the reader has allowed it in a dialog of its own, which a page
-     may open only from a tap: the first tap on the page that is not on a link or a button opens it (Max, 2026-11-16:
-     the tilt did nothing on his phone). A link is left alone, so that the dialog never stands in a page's way. */
+     The site never asks for the tilt (Max, 2026-11-16: "Lets not ask ppl. Just keep it on for whoever it can be on"):
+     where a browser reports it without asking (Android and most other phones) it is on; where a browser asks first
+     (every browser on an iPhone or an iPad) there is no tilt. */
   function wireTilt() {
     var DOE = window.DeviceOrientationEvent;
     /* With ?tilt in the address, a small box at the foot of the window says what the tilt is doing, for checking a
-       phone: whether the browser reports the tilt, whether it asks leave and what the reader answered, whether
-       reduced motion is on, and the reports as they come. Nothing shows without ?tilt. */
-    var diag = null, D = { asked: '-', events: 0, b: 0, g: 0 };
+       phone: whether the browser reports the tilt, whether it would need the reader's leave, whether reduced motion
+       is on, and the reports as they come. Nothing shows without ?tilt. */
+    var diag = null, D = { events: 0, b: 0, g: 0 };
     if (/[?&]tilt\b/.test(location.search)) {
       diag = document.createElement('div');
       diag.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99;padding:8px 10px;font:12px/1.5 monospace;' +
@@ -654,28 +654,13 @@
       document.body.appendChild(diag);
       window.setInterval(function () {
         diag.textContent = 'tilt API: ' + (DOE ? 'yes' : 'NO') +
-          ' | needs leave: ' + (DOE && typeof DOE.requestPermission === 'function' ? 'yes' : 'no') +
-          ' | answer: ' + D.asked + '\nreduced motion: ' + (quiet() ? 'ON (effects off)' : 'off') +
+          ' | needs leave: ' + (DOE && typeof DOE.requestPermission === 'function' ? 'yes (not asked: no tilt)' : 'no') +
+          '\nreduced motion: ' + (quiet() ? 'ON (effects off)' : 'off') +
           ' | reports: ' + D.events + ' | front-back ' + D.b.toFixed(1) + ' side ' + D.g.toFixed(1) +
           ' | lit: ' + (live ? 'yes' : 'no');
       }, 250);
     }
     if (!DOE) return;
-    if (typeof DOE.requestPermission === 'function') {
-      var asking = false;
-      var ask = function (e) {
-        var t = e.target && e.target.closest ? e.target.closest('a, button, input, summary, label, select, textarea') : null;
-        if (t || asking || quiet()) return;
-        asking = true;
-        D.asked = 'asking';
-        DOE.requestPermission().then(function (state) {
-          D.asked = state;
-          if (state === 'granted' || state === 'denied') document.removeEventListener('touchend', ask);
-          asking = false;
-        }, function (err) { D.asked = 'not a tap (' + (err && err.name || 'error') + '), will ask again'; asking = false; });
-      };
-      document.addEventListener('touchend', ask, { passive: true });
-    }
     var REACH = 18;        /* degrees of tilt that carry the light from the middle to the edge */
     var STILL = 0.6;       /* degrees: less than this between two reports is a hand holding still */
     var b0 = null, g0 = null, lb = 0, lg = 0, then = 0, timer = 0, live = false;
