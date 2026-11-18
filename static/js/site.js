@@ -1,4 +1,6 @@
-/* The only script on the site. It sends nothing anywhere. It does six things.
+/* The script of every page. It sends nothing anywhere, except sc26.js, which only the page of record R4 loads: it
+   reads the thoughts that the community has added there and sends a new one (see that file).
+   This one does six things.
    1. The light and dark switch. Without the script the page follows the system setting.
    2. The header: as the page scrolls the mark shrinks to the height of the header's links and stands in their row,
       and its outer ring turns with the page, forward going down and back going up (and the two upper corner
@@ -123,7 +125,10 @@
      - Pointer leaves: everything returns within about a second; the ring never turns back.
      - Keyboard focus: a steady glow.
      - Reduced motion: none of this, also when the setting changes while a page is open.
-     Nothing here moves by itself, and nothing is left behind at rest: no inline style, no added element, no id. */
+     Nothing here moves by itself, and nothing is left behind at rest: no inline style, no added element, no id.
+     (The one thing on the site that moves by itself is the wall of thoughts on the page of record R4, which Max asked
+     for: it floats, and its Pause motion button stops it. It is drawn by sc26.js, and none of it moves with reduced
+     motion. The mark and the rest of the site keep to the rule.) */
   var NS = 'http://www.w3.org/2000/svg';
   var marks = 0;
 
@@ -517,10 +522,13 @@
      properties set here while the pointer is on the name. Nothing runs and nothing is left on it at rest. None
      with reduced motion, and none for a finger, which has no place to rest. */
   var names = [];   /* the name wherever it wears its dress: each can be lit (section 3c lights them by a phone's tilt) */
-  function nameLight(el, host) {
-    /* host: what the pointer has to be on for el to be lit (el itself unless given: a figure is lit from its tile) */
+  function nameLight(el, host, vertical) {
+    /* host: what the pointer has to be on for el to be lit (el itself unless given: a figure is lit from its tile).
+       vertical: the light also has a height (--ny), and the shade lies toward the side of el away from the pointer,
+       at any angle (--na), not only left or right: the cards of the wall of thoughts (sc26.js) are lit this way. A
+       light made for the cards is never put in `names`, so a phone's tilt does not light them. */
     host = host || el;
-    var on = false, k = 0, x = 0.5, to = 0.5, last = 0, raf = 0, alpha = 0.62, shade = 0.5;
+    var on = false, k = 0, x = 0.5, to = 0.5, y = 0.5, toY = 0.5, last = 0, raf = 0, alpha = 0.62, shade = 0.5;
     function tone() {
       var col = (window.getComputedStyle(el).color.match(/\d+(\.\d+)?/g) || [0, 0, 0]).map(Number);
       var pale = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2] > 110;
@@ -534,35 +542,47 @@
       var want = on && !quiet() ? 1 : 0;
       k += (want - k) * Math.min(1, dt * 9);
       x += (to - x) * Math.min(1, dt * 16);
+      y += (toY - y) * Math.min(1, dt * 16);
       if (Math.abs(k - want) < 0.004) k = want;
       if (k === 0) {                       /* at rest: no property is left on the name */
-        ['--nx', '--nl', '--ns', '--na'].forEach(function (p) { el.style.removeProperty(p); });
+        ['--nx', '--ny', '--nl', '--ns', '--na'].forEach(function (p) { el.style.removeProperty(p); });
         if (!el.getAttribute('style')) el.removeAttribute('style');
         last = 0;
         return;
       }
       el.style.setProperty('--nx', (x * 100).toFixed(1) + '%');
       el.style.setProperty('--nl', (alpha * k).toFixed(3));
-      el.style.setProperty('--ns', (shade * k * Math.min(1, Math.abs(x - 0.5) * 2.4)).toFixed(3));
-      el.style.setProperty('--na', x < 0.5 ? '90deg' : '270deg');   /* the shade lies toward the end away from the light */
-      if (k !== want || Math.abs(to - x) > 0.002) run();
+      if (vertical) {
+        /* the shade lies toward the side away from the pointer: the direction from the pointer through the middle,
+           as the CSS angle of a gradient (0deg up, 90deg right); it grows with the pointer's distance from the middle */
+        var dx = x - 0.5, dy = y - 0.5;
+        el.style.setProperty('--ny', (y * 100).toFixed(1) + '%');
+        el.style.setProperty('--ns', (shade * k * Math.min(1, Math.sqrt(dx * dx + dy * dy) * 2.4)).toFixed(3));
+        el.style.setProperty('--na', ((Math.atan2(-dx, dy) * 180 / Math.PI + 360) % 360).toFixed(1) + 'deg');
+      } else {
+        el.style.setProperty('--ns', (shade * k * Math.min(1, Math.abs(x - 0.5) * 2.4)).toFixed(3));
+        el.style.setProperty('--na', x < 0.5 ? '90deg' : '270deg');   /* the shade lies toward the end away from the light */
+      }
+      if (k !== want || Math.abs(to - x) > 0.002 || Math.abs(toY - y) > 0.002) run();
     }
     function run() { if (!raf) raf = window.requestAnimationFrame(frame); }
     var c = {
       el: el,
       /* the light at a place along the name, from 0 at its left end to 1 at its right end */
-      show: function (pos) {
-        if (quiet()) return;
+      show: function (pos, posY) {
+        if (quiet() || c.off) return;
         to = Math.max(0, Math.min(1, pos));
-        if (!on) { tone(); if (k === 0) x = to; }
+        if (vertical) toY = Math.max(0, Math.min(1, posY === undefined ? 0.5 : posY));
+        if (!on) { tone(); if (k === 0) { x = to; y = toY; } }
         on = true; run();
       },
-      hide: function () { if (on) { on = false; run(); } }
+      hide: function () { if (on) { on = false; run(); } },
+      off: false   /* set by a page that has its own switch for motion (sc26.js: Pause motion): no light while true */
     };
     function under(e) {
-      if (e.pointerType === 'touch') return;
+      if (e.pointerType === 'touch' || c.off) return;
       var r = el.getBoundingClientRect();
-      c.show(r.width ? (e.clientX - r.left) / r.width : 0.5);
+      c.show(r.width ? (e.clientX - r.left) / r.width : 0.5, vertical && r.height ? (e.clientY - r.top) / r.height : 0.5);
     }
     host.addEventListener('pointerenter', under);
     host.addEventListener('pointermove', under);
@@ -570,6 +590,7 @@
     if (motion && motion.addEventListener) motion.addEventListener('change', function () { if (motion.matches) c.hide(); });
     return c;
   }
+  window.tnpgLight = nameLight;   /* for sc26.js: the cards of the wall of thoughts are lit by this function */
   /* The name in the header stands wherever it fits in the links' row beside the mark, and nowhere else. The room
      left of the mark depends on the window's width and on the mark's size, which the scroll changes: at the top of
      a page, where the mark is large, a window of middle width has no room for the name, and it comes in once the
