@@ -627,9 +627,9 @@
     msg.setAttribute('data-kind', kind || '');
     note.hidden = !!text;
   }
-  var token = '', widget = null, down = false, sending = false;
+  var token = '', tokenAt = 0, widget = null, down = false, sending = false, pending = false, redo = false;
   function resetCheck() {
-    token = MOCK ? 'mock' : '';
+    token = MOCK ? 'mock' : ''; tokenAt = Date.now();
     if (!MOCK && widget !== null && window.turnstile) { try { window.turnstile.reset(widget); } catch (e) {} }
   }
   var DOWN = 'The check that keeps bots out could not load, so the form is unavailable on this network. Try cellular data.';
@@ -642,9 +642,13 @@
     if (widget !== null) return;
     widget = window.turnstile.render(tsHost, {
       sitekey: SITEKEY, theme: themeNow(), appearance: 'interaction-only',
-      callback: function (t) { token = t; if (down) { down = false; say('', ''); } },
+      callback: function (t) {
+        token = t; tokenAt = Date.now();
+        if (down) { down = false; say('', ''); }
+        if (pending) { pending = false; say('', ''); submit(); }      /* SEND was pressed before the check had finished */
+      },
       'expired-callback': function () { resetCheck(); },
-      'error-callback': function () { token = ''; say('The check that keeps bots out did not finish. Please reload the page, or try another network.', 'bad'); },
+      'error-callback': function () { token = ''; pending = false; say('The check that keeps bots out did not finish. Please reload the page, or try another network.', 'bad'); },
       'timeout-callback': function () { resetCheck(); }
     });
   }
@@ -669,7 +673,13 @@
     if (!text) { say('Enter your thought first.', 'bad'); box.focus(); return; }
     if (text.length < 8) { say('Please write a little more: at least 8 characters.', 'bad'); box.focus(); return; }
     if (down) { say(DOWN, 'bad'); return; }
-    if (!token) { say('Waiting for the check that keeps bots out. If it does not appear, reload the page.', 'bad'); return; }
+    if (token && !MOCK && Date.now() - tokenAt > 240000) { resetCheck(); }     /* a token older than 4 min may be expired (a phone that slept) */
+    if (!token) {
+      pending = true;                                  /* sent by itself when the check delivers its token */
+      say('One moment: the check that keeps bots out is finishing. Your thought will be sent as soon as it does. If a box appears above SEND, tick it.', '');
+      return;
+    }
+    pending = false;
     sending = true;
     sendBtn.setAttribute('aria-disabled', 'true');       /* not disabled, so that a double press is ignored, not lost */
     sendBtn.textContent = 'SENDING\u2026';
@@ -677,6 +687,7 @@
     var table = parseInt(tableSel.value, 10) || null, tableNo = table || 0;
     api.post({ text: text, table: table, token: token, device: deviceId() }).then(function (res) {
       if (res.ok) {
+        redo = false;
         box.value = ''; updateCount();
         try { sessionStorage.removeItem(DRAFT); } catch (e) {}
         /* the text the service stored (it strips invisible characters and caps combining marks) is the thought's own */
@@ -712,6 +723,11 @@
           }
         }
         showState();
+      } else if (res.status === 403 && !redo) {
+        redo = true; pending = true;                 /* an expired or used token: one more try with the next one, without a second press */
+        say('The check had expired. Sending again\u2026', '');
+      } else if (res.status === 403) {
+        say('Not sent: the check did not pass. Please reload the page and try again.', 'bad');
       } else if (res.status === 429) {
         say('Not sent: too many tries just now. Please wait a few minutes.', 'bad');
       } else {
@@ -719,10 +735,11 @@
       }
     }, function () {
       say('Not sent. Please check your connection and try again.', 'bad');
-    }).then(function () {
+    }).then(finish, finish);
+    function finish() {                                /* also when the answer's own handling threw: the button must come back */
       sending = false; sendBtn.removeAttribute('aria-disabled'); sendBtn.textContent = sendLabel;
       resetCheck();                                    /* a token is good for one use */
-    });
+    }
   }
   /* the count sits inside the field; from 180 characters it is in full ink, and it is read out (not before, and not at
      every key) */
@@ -757,7 +774,7 @@
     loadDraft();
     box.addEventListener('input', function () { updateCount(); saveDraft(); if (msg.textContent) say('', ''); });
     tableSel.addEventListener('change', saveDraft);
-    form.addEventListener('submit', function (e) { e.preventDefault(); submit(); });
+    form.addEventListener('submit', function (e) { e.preventDefault(); redo = false; submit(); });   /* a press by hand gets its own retry */
   }
 
   /* ---------------------------------------------------------------- start */
