@@ -821,22 +821,50 @@
       var items = list.querySelectorAll('[data-item]'), groups = list.querySelectorAll('[data-group]');
       var wrap = box.closest('.filt'), count = wrap.querySelector('.fcount');
       var texts = [];
-      for (var k = 0; k < items.length; k++) texts.push(items[k].textContent.toLowerCase());
+      for (var k = 0; k < items.length; k++) {
+        texts.push((items[k].getAttribute('data-search') || items[k].textContent).toLowerCase());
+      }
       wrap.hidden = false;
       var kind = '', chips = wrap.querySelectorAll('.chip[data-kind]');   /* not the switch for the Lean statements */
       var index = document.querySelectorAll('.onpage a[href^="#"], .topics a[href^="#"], .side a[href^="#"]');
-      for (var c = 0; c < chips.length; c++) chips[c].addEventListener('click', function () {
-        kind = this.getAttribute('data-kind');
-        for (var d = 0; d < chips.length; d++) chips[d].setAttribute('aria-pressed', chips[d] === this ? 'true' : 'false');
+      function selectKind(next) {
+        kind = next;
+        for (var d = 0; d < chips.length; d++) {
+          chips[d].setAttribute('aria-pressed', chips[d].getAttribute('data-kind') === kind ? 'true' : 'false');
+        }
         apply();
+      }
+      for (var c = 0; c < chips.length; c++) chips[c].addEventListener('click', function () {
+        selectKind(this.getAttribute('data-kind'));
       });
       box.addEventListener('input', apply);
+      if (list.hasAttribute('data-reveal-links')) {
+        function reveal(hash) {
+          var target = document.getElementById(hash.slice(1));
+          if (!target || !list.contains(target) || !target.closest('[hidden]')) return null;
+          box.value = '';
+          selectKind('');
+          return target;
+        }
+        list.addEventListener('click', function (e) {
+          var link = e.target.closest('a[href^="#"]');
+          if (link && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+            reveal(link.getAttribute('href'));
+          }
+        });
+        window.addEventListener('hashchange', function () {
+          var target = reveal(location.hash);
+          if (target) target.scrollIntoView();
+        });
+      }
       /* the switch that opens every folded Lean statement of the list, or folds them all again */
       var opener = wrap.querySelector('.openall');
       if (opener) opener.addEventListener('click', function () {
         /* a button whose label says what it will do (it was also marked pressed, and a screen reader heard
            "Fold Lean statements, pressed") */
-        var open = this.getAttribute('data-open') !== 'true', folds = list.querySelectorAll('details');
+        var open = this.getAttribute('data-open') !== 'true';
+        var folds = list.querySelectorAll('details.result-lean');
+        if (!folds.length) folds = list.querySelectorAll('details');
         for (var d = 0; d < folds.length; d++) folds[d].open = open;
         this.setAttribute('data-open', open ? 'true' : 'false');
         this.textContent = open ? 'Fold Lean statements' : 'Show Lean statements';

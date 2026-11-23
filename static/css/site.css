@@ -470,6 +470,42 @@ pre.lean code{font-size:inherit}
 .links.cat li{position:relative;padding:12px 0}
 .ts code{font-size:.84em}
 
+/* ---------- Browse results ---------- */
+.result-skip{margin:12px 0;font-size:13px}
+.result-group .sec{margin-top:32px}
+.result-group .sec,.result{scroll-margin-top:calc(var(--hd1) + 20px)}
+.result{padding:16px 0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent)}
+.result:target{border-inline-start:2px solid currentColor;padding-inline-start:12px}
+.result h3,.result h4,.result h5{margin:4px 0 8px;font-size:20px;line-height:1.28;font-weight:600}
+.result p{max-width:70ch;margin:0 0 8px;line-height:1.55;overflow-wrap:anywhere}
+.result .result-reference,.result .result-links{font-size:12.5px}
+.result .result-reference{font-weight:600;margin-bottom:0}
+.result .result-scope{font-size:15px}
+.result .result-links{margin:5px 0 0}
+.result .data p{font-size:14px}
+.result-browse{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+.result-browse .sec{margin-top:32px}
+.result-browse .row{gap:8px 14px}
+.result-search{margin:24px 0}
+.result-search-controls{display:flex;flex-wrap:wrap;align-items:end;gap:8px 12px;font-size:13px}
+.result-search-controls div{display:grid;gap:4px;min-width:0}
+.result-search-controls div:first-child{flex:1 1 16em}
+.result-search-controls input,.result-search-controls select,.result-search-controls button{
+  box-sizing:border-box;min-width:0;font:inherit;color:inherit;background:var(--paper);border:1px solid currentColor;
+  border-radius:0;padding:7px 9px;min-height:36px}
+.result-search-controls button{cursor:pointer}
+.result-search-controls input{width:100%}
+.result-search-status{font-size:12.5px;margin:12px 0 0}
+.result-matches{list-style:none;padding:0;margin:0}
+.result-matches li{display:grid;gap:2px;padding:10px 0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent)}
+.result-matches .m{font-size:12.5px}
+.result-more{margin-top:8px}
+@media(max-width:680px){
+  .result-browse{grid-template-columns:1fr}
+  .result-search-controls div:first-child{flex-basis:100%}
+  .result-search-controls div:nth-child(2){flex:1 1 8em}
+}
+
 /* ---------- related work: the two figures and the reading list ---------- */
 .onpage{margin:22px 0 0;font-size:13px;line-height:1.6}
 .onpage p{margin:0;font-weight:600}
