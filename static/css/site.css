@@ -483,6 +483,8 @@ pre.lean code{font-size:inherit}
 .result .result-scope{font-size:15px}
 .result .result-links{margin:5px 0 0}
 .result .data p{font-size:14px}
+.result-equation{display:block;overflow-x:auto;margin-block:.45em;padding-block:.15em}
+.result-equation .katex{display:block;min-width:max-content}
 .result-definitions{margin:6px 0 10px}
 .result-definitions dl{margin:8px 0 4px;padding-inline-start:12px;border-inline-start:1px solid currentColor}
 .result-definitions dt{font-weight:600;font-size:15px}
