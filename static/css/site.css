@@ -483,6 +483,11 @@ pre.lean code{font-size:inherit}
 .result .result-scope{font-size:15px}
 .result .result-links{margin:5px 0 0}
 .result .data p{font-size:14px}
+.result-definitions{margin:6px 0 10px}
+.result-definitions dl{margin:8px 0 4px;padding-inline-start:12px;border-inline-start:1px solid currentColor}
+.result-definitions dt{font-weight:600;font-size:15px}
+.result-definitions dd{max-width:66ch;margin:2px 0 10px;font-size:15px;line-height:1.5}
+.result-definitions dd:last-child{margin-bottom:0}
 .result-browse{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
 .result-browse .sec{margin-top:32px}
 .result-browse .row{gap:8px 14px}
