@@ -1,7 +1,8 @@
 /* The script of every page. It sends nothing anywhere, except sc26.js, which only the page of record R4 loads: it
    reads the thoughts that the community has added there and sends a new one (see that file).
-   This one does six things.
-   1. The light and dark switch. Without the script the page follows the system setting.
+   This one does seven things.
+   1. The light and dark switch (a switch, on for the dark page). Without the script the page follows the system
+      setting.
    2. The header: as the page scrolls the mark shrinks to the height of the header's links and stands in their row,
       and its outer ring turns with the page, forward going down and back going up (and the two upper corner
       ornaments, when the site shows them, shrink).
@@ -14,7 +15,8 @@
       without changing size or shape.
    5. A reader who has asked the system for reduced motion gets none of what is described in 3 and 4, also when the
       setting changes while a page is open.
-   6. A box over a long list narrows it as one types, and buttons beside it show one kind of entry. */
+   6. A box over a long list narrows it as one types, and buttons beside it show one kind of entry.
+   7. On a phone, a button in the header opens the links on a sheet of their own. */
 (function () {
   var KEY = 'hub-theme';
   var motion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
@@ -42,17 +44,21 @@
     labelAll();
   });
   var themed = [];   /* called whenever the theme may have changed */
+  var retheming = 0;
   function labelAll() {
     for (var t = 0; t < themed.length; t++) themed[t]();
-    /* the switch is a sign for the page it leads to (a sun for the light page, a moon for the dark one: the
-       stylesheet draws the one that data-to names), with its name in words for a screen reader and as a tip */
-    var other = current() === 'dark' ? 'light' : 'dark';
+    /* the links' colours change at once with the page's (their gradual change is for the pointer): the stylesheet
+       holds their transition while .retheme is on, for two frames */
+    root.classList.add('retheme');
+    if (retheming) window.cancelAnimationFrame(retheming);
+    retheming = window.requestAnimationFrame(function () {
+      retheming = window.requestAnimationFrame(function () { retheming = 0; root.classList.remove('retheme'); });
+    });
+    /* the switch (both copies of it: the one in the row of links and the one a phone shows) is on for the dark page;
+       the stylesheet slides its thumb to the moon's end then and puts the moon on it */
+    var dark = current() === 'dark' ? 'true' : 'false';
     var buttons = document.querySelectorAll('.theme');
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].setAttribute('data-to', other);
-      buttons[i].setAttribute('aria-label', 'Switch to the ' + other + ' theme');
-      buttons[i].setAttribute('title', other === 'dark' ? 'Dark theme' : 'Light theme');
-    }
+    for (var i = 0; i < buttons.length; i++) buttons[i].setAttribute('aria-checked', dark);
   }
 
   /* ---- 2. scroll: --p sizes the mark and --q the upper ornaments; both run from 0 to 1 over RANGE pixels. (Short
@@ -1123,7 +1129,71 @@
     }
   }
 
+  /* ---- 7. the menu on a phone ----
+     Where the stylesheet shows the menu button (a narrow window), it opens and closes the sheet of links under the
+     header. While the sheet is open the page under it neither scrolls (the stylesheet, html.menu-open) nor takes the
+     keyboard's focus (inert); Escape, the button, a link anywhere in the header or the sheet, or a window grown wide
+     enough to hide the button close it, and Escape gives the focus back to the button. A page restored by Back from
+     the browser's cache comes back with the sheet closed. */
+  function wireMenu() {
+    var btn = document.querySelector('.burger'), menu = document.getElementById('menu');
+    if (!btn || !menu) return;
+    var page = document.querySelector('.page'), open = false, shown = 0;
+    function set(on, refocus) {
+      if (on === open) return;
+      open = on;
+      btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      root.classList.toggle('menu-open', on);
+      if (page) { if (on) page.setAttribute('inert', ''); else page.removeAttribute('inert'); }
+      if (shown) { window.cancelAnimationFrame(shown); shown = 0; }
+      if (on) {
+        menu.hidden = false;
+        /* drawn once closed, then open on the next frame, so that it fades in and its links rise */
+        shown = window.requestAnimationFrame(function () {
+          shown = window.requestAnimationFrame(function () { shown = 0; menu.classList.add('on'); });
+        });
+      } else {
+        menu.classList.remove('on');
+        menu.hidden = true;
+        if (refocus) btn.focus();
+      }
+    }
+    btn.addEventListener('click', function () { set(!open); });
+    document.addEventListener('keydown', function (e) {
+      if (open && (e.key === 'Escape' || e.key === 'Esc')) { e.preventDefault(); set(false, true); }
+    });
+    /* a link followed from the sheet or the header (the mark, a section): the sheet is not left open behind it,
+       which matters where the link stays on this page */
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (open && a && (menu.contains(a) || a.closest('.topin'))) set(false);
+    });
+    /* a window grown wide enough to hide the button: the sheet closes, and the keyboard's focus is not lost with
+       what held it: a section of the sheet hands it to the same section in the header's row, the menu button to the
+       row's first link, the phone's switch to the row's switch */
+    /* (a browser takes the focus away from what it hides before it reports the resize: the control that has just lost
+       it that way is remembered for a moment) */
+    var lost = null, lostAt = 0;
+    document.addEventListener('focusout', function (e) { lost = e.relatedTarget ? null : e.target; lostAt = Date.now(); }, true);
+    window.addEventListener('resize', function () {
+      if (window.getComputedStyle(btn).display !== 'none') return;
+      var had = document.activeElement, twin = null, row = document.querySelectorAll('.navl a, .navr a'), i;
+      if ((!had || had === document.body) && lost && !lost.offsetWidth && Date.now() - lostAt < 1000) had = lost;
+      if (had === btn) {
+        for (i = 0; i < row.length && !twin; i++) if (row[i].offsetWidth) twin = row[i];
+      } else if (had && had.classList && had.classList.contains('sw-ph')) {
+        twin = document.querySelector('.navr .theme');
+      } else if (open && had && menu.contains(had) && had.getAttribute('href')) {
+        for (i = 0; i < row.length && !twin; i++) if (row[i].getAttribute('href') === had.getAttribute('href')) twin = row[i];
+      }
+      set(false);
+      if (twin) twin.focus();
+    });
+    window.addEventListener('pageshow', function (e) { if (e.persisted) set(false); });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    wireMenu();   /* first: on a phone it is the way to the sections */
     var buttons = document.querySelectorAll('.theme');
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].hidden = false;
